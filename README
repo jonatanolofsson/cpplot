@@ -3,7 +3,10 @@ Copyright Jonatan Olofsson, 2011-2012
 License: GPLv3+
 Author: Jonatan Olofsson (jonatan.olofsson@gmail.com)
 
-Originally based on
+The cpplot library intends to provide a simple, well-written plotting
+library for use in GPL'ed projects.
+
+Although completely rewritten, this library is originally based on
 MATPLOT++ (MATLAB-like plotting tool in C++)
 Copyright (c) 2011 Yuichi Katori All Rights Reserved
 Author: Yuichi Katori (yuichi.katori@gmail.com)
