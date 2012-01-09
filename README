@@ -1,0 +1,24 @@
+cpplot; Simple plotting in C++
+Copyright Jonatan Olofsson, 2011-2012
+License: GPLv3+
+Author: Jonatan Olofsson (jonatan.olofsson@gmail.com)
+
+Originally based on
+MATPLOT++ (MATLAB-like plotting tool in C++)
+Copyright (c) 2011 Yuichi Katori All Rights Reserved
+Author: Yuichi Katori (yuichi.katori@gmail.com)
+
+Getting Started
+------------------------------------------
+
+To install a required library on ubuntu
+
+$ sudo apt-get install freeglut3-dev
+
+To compile cpplot,
+
+$ mkdir build && cd build
+$ cmake ..
+$ make
+
+Compiling of examples may be optionally disabled in cmake
