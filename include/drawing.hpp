@@ -53,6 +53,7 @@ namespace cpplot {
 
             virtual void draw() = 0; ///< Virtual function to draw the object to axes
             virtual void config() = 0; ///< Virtual function to configure the axes
+            virtual void clear() = 0; ///< Clear all data
 
             /**
              * All drawings should register its parent axes

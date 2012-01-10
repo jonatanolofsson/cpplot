@@ -45,6 +45,17 @@ namespace cpplot {
         }
     }
 
+    void Surface::clear() {
+        boost::mutex::scoped_lock l(data_mutex);
+        XData.clear();
+        YData.clear();
+        ZData.clear();
+        CDataIndex.clear();
+        CData.clear();
+        V.clear();
+
+    }
+
     void Surface::draw2d() {
         boost::mutex::scoped_lock l(data_mutex);
         int nxi,nxj,nyi,nyj,nzi,nzj;

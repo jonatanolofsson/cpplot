@@ -181,6 +181,12 @@ namespace cpplot {
                 return ptr ? ptr : add<T>();
             }
 
+            /// Clear the figure
+            axes_t clear() {
+                boost::mutex::scoped_lock l(children_mutex);
+                co.reset(); children.clear(); return shared_from_this();
+            }
+
             // Colors ///
             void color(const float r, const float g, const float b); ///< Set color of axes
             std::vector<float> colormap(const std::string c, const float t); ///< Set the colormap of the axes children
@@ -225,7 +231,7 @@ namespace cpplot {
             surface_t surface(const dmat& Z, const tcmat& C) { return add<Surface>()->surface(Z, C); } ///< See surface.hpp
             surface_t surface(const dvec& x, const dvec& y, const dmat& Z) { return add<Surface>()->surface(x,y,Z); } ///< See surface.hpp
             surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const dmat& C) { return add<Surface>()->surface(x,y,Z,C); } ///< See surface.hpp
-            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C) { return add<Surface>()->surface(x,y,Z); } ///< See surface.hpp
+            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C) { return add<Surface>()->surface(x,y,Z,C); } ///< See surface.hpp
             surface_t surface(const dmat& X, const dmat& Y, const dmat& Z) { return add<Surface>()->surface(X,Y,Z); } ///< See surface.hpp
             surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const dmat& C) { return add<Surface>()->surface(X,Y,Z,C); } ///< See surface.hpp
             surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const tcmat& C) { return add<Surface>()->surface(X,Y,Z,C); } ///< See surface.hpp

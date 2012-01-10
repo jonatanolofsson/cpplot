@@ -35,6 +35,15 @@ namespace cpplot {
         if(type == _2D) { draw2d(); }
         if(type == _3D) { draw3d(); }
     }
+    void Patch::clear() {
+        boost::mutex::scoped_lock l(data_mutex);
+        XData.clear();
+        YData.clear();
+        ZData.clear();
+        CData.clear();
+        faces.clear();
+        vertices.clear();
+    }
 
     void Patch::draw2d() {
         boost::mutex::scoped_lock l(data_mutex);

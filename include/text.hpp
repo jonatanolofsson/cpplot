@@ -53,8 +53,7 @@ namespace cpplot {
                 :   drawing_t_t(a)
                 {}
             text_t text(double x, double y, const std::string s);
-
-        private:
+            void clear(); ///< Clear all data
             void config(); ///< Configure the axes in which the text is printed
     };
 }

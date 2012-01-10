@@ -33,7 +33,7 @@ Version:0.3.13
 
 namespace cpplot {
     figure_t Line::gcf() { return ca->gcl()->gcf(); }
-     void Line::reset() {
+    void Line::clear() {
         boost::mutex::scoped_lock l(data_mutex);
         XData.clear();
         YData.clear();

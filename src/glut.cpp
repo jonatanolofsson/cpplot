@@ -72,6 +72,7 @@ namespace cpplot {
         }
 
         void register_figure(const figure_t fig) {
+            std::cout << "Registering new figure " << std::endl;
             boost::mutex::scoped_lock l(wq_mutex);
             window_queue.push_back(fig);
         }
@@ -83,6 +84,7 @@ namespace cpplot {
                 create_window(*it);
                 window_queue.erase(it++);
             }
+            boost::this_thread::sleep(boost::posix_time::milliseconds(200));
         }
 
         void run(int& argc, char* argv[]) {
@@ -90,8 +92,7 @@ namespace cpplot {
             glutInitWindowPosition( -50, -50 );
             glutInitWindowSize( 0, 0  );
             tool_window_number = glutCreateWindow("");
-            glutIdleFunc(idle);
-            glutDisplayFunc(tool);
+            glutIdleFunc(tool);
             glutHideWindow();
             glutMainLoop();
         }

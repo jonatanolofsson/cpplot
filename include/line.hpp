@@ -47,7 +47,7 @@ namespace cpplot {
         public:
             bool Errorbar; ///< Plot errorbar or not
 
-            void reset(); ///< Reset the line (clear all data)
+            void clear(); ///< Clear all data
             void color(const float r, const float g, const float b); ///< Set line color
 
             // Matlab oriented variables //
@@ -68,6 +68,7 @@ namespace cpplot {
              */
             Line(const axes_t a)
                 :   drawing_t_t(a),
+                    Errorbar(false),
                     Color("b"),
                     LineStyle("-"),
                     LineWidth(0.5),
@@ -75,7 +76,6 @@ namespace cpplot {
                     MarkerSize(6),
                     MarkerEdgeColor("k"),
                     MarkerFaceColor("w"),
-                    Errorbar(false),
                     XData(), YData(), ZData(),
                     YPData(), YMData()
                 {}

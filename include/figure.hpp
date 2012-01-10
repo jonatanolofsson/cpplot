@@ -75,6 +75,7 @@ namespace cpplot {
             void draw(); ///< Draw the layers
             void draw_layer_list(); ///< Draw the layer list
             layer_t gcl() { return cl ? cl : layer(); } ///< Get the current layer, or create a new one if needed
+            figure_t clear() { cl.reset(); layers.clear(); return shared_from_this(); } ///< Clear the figure
 
             // GLUT Callback Functions ///
             void reshape(const int w, const int h); ///< Callback on window resize

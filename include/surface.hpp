@@ -39,7 +39,7 @@ namespace cpplot {
     class Surface : public drawing_t_t, public boost::enable_shared_from_this<Surface> {
         public:
             dmat XData,YData,ZData,CDataIndex; ///< Datacontainers for the plot
-            tcmat CData;
+            tcmat CData; ///< Color data container
             dvec V; ///< Data container
 
             std::string FaceColor;///< ColorSpec    | none | { flat}
@@ -56,13 +56,15 @@ namespace cpplot {
              */
             Surface(const axes_t a)
                 :   drawing_t_t(a),
+                    V(),
                     FaceColor("flat"),
                     EdgeColor("b"),
                     LineStyle("-"),
                     LineWidth(0.5),
-                    NContour(10),
-                    V()
+                    NContour(10)
                 {}
+
+            void clear(); ///< Clear all data
 
             /**
              * Draw the surface on the axes. This is only used internally.

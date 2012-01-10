@@ -66,6 +66,7 @@ namespace cpplot {
             axes_t subplot(const int m, const int n, const int p); ///< Select (and create if needed) an axes places as a subplot in the layer
             axes_t gca() { return ca ? ca : subplot(1,1,1); } ///< Get the current axes from the layer
             figure_t gcf() { return figure; } ///< Get the layer's figure
+            layer_t clear() { ca.reset(); axes.clear(); return shared_from_this(); } ///< Clear the layer
 
             void toggle_visibility(); ///< Toggle the visibility of the layer
             void set_visibility(bool v); ///< Set the visibility of the layer

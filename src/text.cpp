@@ -38,6 +38,10 @@ namespace cpplot {
         String = s;
         return shared_from_this();
     }
+
+    void Text::clear() {
+        String.clear();
+    }
     //~ void Text::set_font(char font_[], int size) {
         //font=font_;
         //font_size=size;
