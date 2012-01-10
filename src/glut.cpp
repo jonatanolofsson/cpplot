@@ -36,6 +36,16 @@ Version:0.3.13
 
 namespace cpplot {
     namespace glut {
+
+        void idle();
+        void display();
+        void reshape(int w, int h);
+        void mouse(int button, int state, int x, int y);
+        void motion(int x, int y);
+        void passivemotion(int x,int y);
+        void keyboard(unsigned char key, int x, int y);
+
+
         int tool_window_number;
         typedef std::map<int, figure_t> glutmap;
         glutmap windows;

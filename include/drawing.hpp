@@ -45,15 +45,18 @@ namespace cpplot {
 
         public:
             // axes coordination
-            float ctx(const double x);
-            float cty(const double y);
-            float ct3x(const double x);
-            float ct3y(const double y);
-            float ct3z(const double z);
+            float ctx(const double x); ///< Coordinate transform to axes coordinate system, 2D, x-axis
+            float cty(const double y); ///< Coordinate transform to axes coordinate system, 2D, y-axis
+            float ct3x(const double x); ///< Coordinate transform to axes coordinate system, 3D, x-axis
+            float ct3y(const double y); ///< Coordinate transform to axes coordinate system, 3D, y-axis
+            float ct3z(const double z); ///< Coordinate transform to axes coordinate system, 3D, z-axis
 
-            virtual void draw() = 0;
-            virtual void config() = 0;
+            virtual void draw() = 0; ///< Virtual function to draw the object to axes
+            virtual void config() = 0; ///< Virtual function to configure the axes
 
+            /**
+             * All drawings should register its parent axes
+             */
             drawing_t_t(const axes_t a)
                 :   ca(a)
                 {}

@@ -30,8 +30,8 @@ Version:0.3.13
 #ifndef _CPPLOT_COLOR_HPP_
 #define _CPPLOT_COLOR_HPP_
 namespace cpplot {
-    std::vector<float> ColorSpec2RGB(const std::string& c);
-    std::string rgb2colorspec(std::vector<float> rgb);
+    std::vector<float> ColorSpec2RGB(const std::string& c); ///< Convert string to RGB
+    std::string rgb2colorspec(std::vector<float> rgb); ///< Convert RGB to string
 }
 
 #endif

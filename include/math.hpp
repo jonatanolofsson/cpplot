@@ -25,23 +25,27 @@
 #include <limits>
 
 namespace cpplot {
-    typedef std::vector<double> dvec;
-    typedef std::vector< std::vector<double> > dmat;
-    typedef std::vector< std::vector<float> > tcvec;
-    typedef std::vector< std::vector< std::vector<float> > > tcmat;
+    typedef std::vector<double> dvec; ///< General vector of doubles
+    typedef std::vector< std::vector<double> > dmat; ///< General matrix of doubles
+    typedef std::vector< std::vector<float> > tcvec; ///< Matrix of floats
+    typedef std::vector< std::vector< std::vector<float> > > tcmat; ///< 4D tensor of floats
 
     namespace math {
-        enum scale { linear_scale, logarithmic_scale};
+        enum scale { linear_scale, logarithmic_scale}; ///< Indicates the scale of an axis
 
-        /// math::max math::min
+        /// Get the maximum valued element from vector
         template<typename T>
         T max(const std::vector<T>& x) {
             return *std::max_element(x.begin(), x.end());
         }
+
+        /// Get the minimum valued element from vector
         template<typename T>
         T min(const std::vector<T>& x) {
             return *std::min_element(x.begin(), x.end());
         }
+
+        /// Get the maximum valued element from a matrix
         template<typename T>
         T max(const std::vector<std::vector<T> >& x) {
             double res = std::numeric_limits<double>::min();
@@ -51,6 +55,7 @@ namespace cpplot {
             return res;
         }
 
+        /// Get the minimum valued element from matrix
         template<typename T>
         T  min(const std::vector<std::vector<T> >& x) {
             double res = std::numeric_limits<double>::max();
@@ -60,7 +65,9 @@ namespace cpplot {
             return res;
         }
 
-
+        /**
+         * Generate n equidistant numbers between [min, max]
+         */
         template<typename T>
         T linspace(const double min, const double max, int n) {
             if(n<1) { n = 1; }
@@ -71,7 +78,7 @@ namespace cpplot {
             return a;
         }
 
-        dmat peaks(const int n);
+        dmat peaks(const int n); ///<
     }
 }
 

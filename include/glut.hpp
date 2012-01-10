@@ -33,15 +33,14 @@ Version:0.3.13
 #include "types.hpp"
 namespace cpplot {
     namespace glut {
-        void register_figure(const figure_t fig);
+        /**
+         * Start a new thread with glut
+         */
         void init(int& argc, char* argv[]);
-        void idle();
-        void display();
-        void reshape(int w, int h);
-        void mouse(int button, int state, int x, int y);
-        void motion(int x, int y);
-        void passivemotion(int x,int y);
-        void keyboard(unsigned char key, int x, int y);
+        /**
+         * Register a new figure to be created and drawn
+         */
+        void register_figure(const figure_t fig);
     }
 }
 

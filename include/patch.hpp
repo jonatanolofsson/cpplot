@@ -34,19 +34,20 @@ namespace cpplot {
     typedef boost::shared_ptr<Patch> patch_t;
     class Patch : public drawing_t_t, public boost::enable_shared_from_this<Patch> {
         public:
-            enum types {_2D, _3D} type;
-            std::vector< std::vector<int> > faces;
-            dmat vertices;
-            dmat FaceVertexCData;
-            dmat XData,YData,ZData;
+            enum types {_2D, _3D} type; ///< View type
+            std::vector< std::vector<int> > faces; ///< Face data container
+            dmat vertices; ///< Vertice data container
+            dmat XData,YData,ZData; ///< Data containers
+            tcvec CData; ///< Color data container
 
-            tcvec CData;
+            std::string EdgeColor,FaceColor; ///{ ColorSpec}|none|flat|interp
 
-            std::string EdgeColor,FaceColor;//{ ColorSpec}|none|flat|interp
+            std::string LineStyle; /// {-} | - - | : | -. | none
+            float LineWidth; ///< Width of plotted line
 
-            std::string LineStyle; // {-} | - - | : | -. | none
-            float  LineWidth;
-
+            /**
+             * The constructor accepts as single argument a shared pointer to the axes to which the object belongs
+             */
             Patch(const axes_t a)
                 :   drawing_t_t(a),
                     type(_2D),
@@ -56,32 +57,35 @@ namespace cpplot {
                     LineStyle("-")
                 {}
 
+
+            /**
+             * Draw the patch on the axes. This is only used internally.
+             */
             void draw();
 
 
-            /// bar
-            patch_t bar(const dvec& y, float width = 0.8);
-            patch_t bar(const dvec& x, const dvec& y, const float width = 0.8);
+            // bar
+            patch_t bar(const dvec& y, float width = 0.8); ///< Plot a bar
+            patch_t bar(const dvec& x, const dvec& y, const float width = 0.8); ///< Plot a bar
             /// patch
-            patch_t patch(const dmat& X, const dmat& Y);
-            patch_t patch(const dmat& X, const dmat& Y, const dvec& C);
-            patch_t patch(const dmat& X, const dmat& Y, const tcvec& C);
-            patch_t patch(const dmat& X, const dmat& Y, const dmat& Z);
-            patch_t patch(const dmat& X, const dmat& Y, const dmat& Z, const dvec& C);
-            patch_t patch(const dmat& X, const dmat& Y, const dmat& Z, const tcvec& C);
+            patch_t patch(const dmat& X, const dmat& Y); ///< Plot patch
+            patch_t patch(const dmat& X, const dmat& Y, const dvec& C); ///< Plot patch
+            patch_t patch(const dmat& X, const dmat& Y, const tcvec& C); ///< Plot patch
+            patch_t patch(const dmat& X, const dmat& Y, const dmat& Z); ///< Plot patch
+            patch_t patch(const dmat& X, const dmat& Y, const dmat& Z, const dvec& C); ///< Plot patch
+            patch_t patch(const dmat& X, const dmat& Y, const dmat& Z, const tcvec& C); ///< Plot patch
 
-            patch_t set(const std::string p, const std::string v);
-            patch_t set(const std::string p, const float v);
+            patch_t set(const std::string p, const std::string v); ///< Set property
+            patch_t set(const std::string p, const float v); ///< Set property
 
-            tcvec Index2TrueColor(const dvec& IC);
+            tcvec Index2TrueColor(const dvec& IC); ///< Convert color index to a real color
 
-            void config();
+            void config(); ///< Configure the axes in which the patch is printed
 
         private:
-            void draw2d();
-            void draw3d();
-            boost::mutex data_mutex;
+            void draw2d(); ///< Draw 2D patch
+            void draw3d(); ///< Draw 3D patch
+            boost::mutex data_mutex; ///< Protects the data when reading/writing
     };
-    //Note: XData[iv][if]
 }
 #endif

@@ -31,87 +31,96 @@ Version:0.3.13
 #define _CPPLOT_SURFACE_HPP_
 namespace cpplot {
     class Surface;
+    /**
+     * The surface_t is a shared pointer that will keep the
+     * Surface object it's pointing to alive and available.
+     */
     typedef boost::shared_ptr<Surface> surface_t;
     class Surface : public drawing_t_t, public boost::enable_shared_from_this<Surface> {
         public:
-            std::string ColorMap;
-
-            dmat XData,YData,ZData,CDataIndex;
-            dvec V,UserData;
+            dmat XData,YData,ZData,CDataIndex; ///< Datacontainers for the plot
             tcmat CData;
+            dvec V; ///< Data container
 
-            std::string FaceColor;//ColorSpec    | none | { flat}
-            std::string EdgeColor;//ColorSpec{ k} | none | flat
+            std::string FaceColor;///< ColorSpec    | none | { flat}
+            std::string EdgeColor;///< ColorSpec{ k} | none | flat
 
-            std::string LineStyle;// {-} | - - | : | -. | none
-            float LineWidth;
-            std::string Marker;// { none}
-            float MarkerSize;
-            std::string MarkerEdgeColor;
-            std::string MarkerFaceColor;
+            std::string LineStyle;///< {-} | - - | : | -. | none
+            float LineWidth; ///< Width of plotted line
+            int NContour; ///< Number of contours in plot
 
-            int NContour;
+            enum types { _2D, _3D, contourplot } type; ///< The type of plot
 
-            enum types { _2D, _3D, contourplot } type;
-
+            /**
+             * The constructor accepts as single argument a shared pointer to the axes to which the object belongs
+             */
             Surface(const axes_t a)
                 :   drawing_t_t(a),
-                    ColorMap("Gray"),
                     FaceColor("flat"),
                     EdgeColor("b"),
                     LineStyle("-"),
                     LineWidth(0.5),
                     NContour(10),
-                    V(), UserData()
+                    V()
                 {}
 
+            /**
+             * Draw the surface on the axes. This is only used internally.
+             */
             void draw();
 
 
             /// Color ///
-            surface_t shading(const std::string c);
-            surface_t surface(const dmat& Z);
-            surface_t surface(const dmat& Z, const dmat& C);
-            surface_t surface(const dmat& Z, const tcmat& C);
-            surface_t surface(const dvec& x, const dvec& y, const dmat& Z);
-            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const dmat& C);
-            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C);
-            surface_t surface(const dmat& X, const dmat& Y, const dmat& Z);
-            surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const dmat& C);
-            surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const tcmat& C);
+            surface_t shading(const std::string c); ///< Set the shading property
+            surface_t surface(const dmat& Z); ///< Plot a surface described by the argument
+            surface_t surface(const dmat& Z, const dmat& C); ///< Plot a surface described by the arguments
+            surface_t surface(const dmat& Z, const tcmat& C); ///< Plot a surface described by the arguments
+            surface_t surface(const dvec& x, const dvec& y, const dmat& Z); ///< Plot a surface described by the arguments
+            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const dmat& C); ///< Plot a surface described by the arguments
+            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C); ///< Plot a surface described by the arguments
+            surface_t surface(const dmat& X, const dmat& Y, const dmat& Z); ///< Plot a surface described by the arguments
+            surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const dmat& C); ///< Plot a surface described by the arguments
+            surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const tcmat& C); ///< Plot a surface described by the arguments
+
             /// surf
-            surface_t surf(const dvec& x, const dvec& y, const dmat& Z);
+            surface_t surf(const dvec& x, const dvec& y, const dmat& Z); ///< Plot a surf surface described by the arguments
+
             /// create pcolor
-            surface_t pcolor(dmat C);
-            surface_t pcolor(const tcmat& C);
-            surface_t pcolor(const dvec& x, const dvec& y, const dmat& C);
-            surface_t pcolor(const dvec& x, const dvec& y, const tcmat& C);
-            surface_t pcolor(const dmat& X, const dmat& Y, const dmat& C);
-            surface_t pcolor(const dmat& X, const dmat& Y, const tcmat& C);
+            surface_t pcolor(dmat C); ///< Plot a pcolor surface described by the arguments
+            surface_t pcolor(const tcmat& C); ///< Plot a pcolor surface described by the arguments
+            surface_t pcolor(const dvec& x, const dvec& y, const dmat& C); ///< Plot a pcolor surface described by the arguments
+            surface_t pcolor(const dvec& x, const dvec& y, const tcmat& C); ///< Plot a pcolor surface described by the arguments
+            surface_t pcolor(const dmat& X, const dmat& Y, const dmat& C); ///< Plot a pcolor surface described by the arguments
+            surface_t pcolor(const dmat& X, const dmat& Y, const tcmat& C); ///< Plot a pcolor surface described by the arguments
+
             /// mesh
-            surface_t mesh(const dvec& x, const dvec& y, dmat Z);
+            surface_t mesh(const dvec& x, const dvec& y, dmat Z);///< Plot a mesh described by the arguments
+
             /// contour
-            surface_t contour(const dmat& Z);
-            surface_t contour(const dmat& Z, const int n);
-            surface_t contour(const dmat& Z, const dvec& v);
-            surface_t contour(const dvec& x, const dvec& y, const dmat& Z);
-            surface_t contour(const dvec& x, const dvec& y, const dmat& Z, const int n);
-            surface_t contour(const dvec& x, const dvec& y, const dmat& Z, const dvec& v);
+            surface_t contour(const dmat& Z); ///< Plot a surface contour described by the arguments
+            surface_t contour(const dmat& Z, const int n); ///< Plot a surface contour described by the arguments
+            surface_t contour(const dmat& Z, const dvec& v); ///< Plot a surface contour described by the arguments
+            surface_t contour(const dvec& x, const dvec& y, const dmat& Z); ///< Plot a surface contour described by the arguments
+            surface_t contour(const dvec& x, const dvec& y, const dmat& Z, const int n); ///< Plot a surface contour described by the arguments
+            surface_t contour(const dvec& x, const dvec& y, const dmat& Z, const dvec& v); ///< Plot a surface contour described by the arguments
 
-            surface_t set(const std::string p, const std::string v);
-            surface_t set(const std::string p, const float v);
+            surface_t set(const std::string p, const std::string v); ///< Set property
+            surface_t set(const std::string p, const float v); ///< Set property
 
-            void contourc(const dvec& x, const dvec& y, const dmat& Z, const dvec& v, dmat& C);
 
-            void config();
+            void config(); ///< Configure the axes in which the surface is printed
 
         private:
-            void draw2d();
-            void draw3d();
-            void draw_contour();
-            boost::mutex data_mutex;
+            void draw2d(); ///< Draw a 2D surface
+            void draw3d(); ///< Draw a 3D surface
+            void contourc(const dvec& x, const dvec& y, const dmat& Z, const dvec& v, dmat& C); ///< Generate contour structure
+            void draw_contour(); ///< Draw contour
+            boost::mutex data_mutex; ///< Protects the data when reading/writing
 
             // contour
+            /**
+             * Internal contour representation
+             */
             struct ContourPoint{
                 double x,y;
                 int xj,yi;
@@ -120,7 +129,5 @@ namespace cpplot {
             };
 
     };
-    //Note:
-    // [m,n] = size(Z), length(x) = n length(y) = m, (x(j),y(i),Z(i,j))
 }
 #endif

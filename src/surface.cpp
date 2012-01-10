@@ -585,8 +585,7 @@ namespace cpplot {
         }
     }
 
-        /// Color ///
-
+    // Color
     surface_t Surface::shading(const std::string c) {
         if(c == "faceted") {
             EdgeColor="k";
@@ -694,7 +693,7 @@ namespace cpplot {
         CData = C;
         return shared_from_this();
     }
-    /// surf
+    // surf
     surface_t Surface::surf(const dvec& x, const dvec& y, const dmat& Z) {
         boost::mutex::scoped_lock l(data_mutex);
         ca->type = axes_t_t::_3D;
@@ -708,7 +707,8 @@ namespace cpplot {
         FaceColor = "flat";
         return shared_from_this();
     }
-    /// create pcolor
+
+    // create pcolor
     surface_t Surface::pcolor(dmat C) {
         boost::mutex::scoped_lock l(data_mutex);
         type = _2D;

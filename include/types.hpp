@@ -27,6 +27,11 @@ Project:MATPLOT++ (MATLAB-like plotting tool in C++).
 Version:0.3.13
 ****************************************************************************/
 
+
+/**
+ * In this file, the main types of cpplot are defined
+ */
+
 #ifndef _CPPLOT_TYPES_HPP_
 #define _CPPLOT_TYPES_HPP_
 
@@ -34,14 +39,26 @@ Version:0.3.13
 
 namespace cpplot {
     class axes_t_t;
+    /**
+     * The axes_t is a shared pointer that will keep the
+     * axes object it's pointing to alive and available.
+     */
     typedef boost::shared_ptr<axes_t_t> axes_t;
     typedef std::map<int, axes_t> axess_t;
 
     class layer_t_t;
+    /**
+     * The figure_t is a shared pointer that will keep the
+     * layer object it's pointing to alive and available.
+     */
     typedef boost::shared_ptr<layer_t_t> layer_t;
     typedef std::map<std::string, layer_t> layers_t;
 
     class figure_t_t;
+    /**
+     * The figure_t is a shared pointer that will keep the
+     * figure object it's pointing to alive and available.
+     */
     typedef boost::shared_ptr<figure_t_t> figure_t;
     typedef std::map<int, figure_t> figures_t;
 }

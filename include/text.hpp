@@ -31,19 +31,31 @@ Version:0.3.13
 #define _CPPLOT_TEXT_HPP_
 namespace cpplot {
     class Text;
+    /**
+     * The text_t is a shared pointer that will keep the
+     * Text object it's pointing to alive and available.
+     */
     typedef boost::shared_ptr<Text> const text_t;
+
+    /**
+     * The text object represents a string that is printed on a plot
+     */
     class Text : public drawing_t_t, public boost::enable_shared_from_this<Text> {
         public:
-            std::string String;
-            float position[3];
-            void draw();
+            std::string String; ///< Contains the data that is printed to the plot
+            float position[3]; ///< The three-dimensional position of the text. In a 2d-plot, only the first two are used.
+            void draw(); ///< Draw the text to the plot. This is only used internally
+
+            /**
+             * The constructor accepts as single argument a shared pointer to the axes to which the object belongs
+             */
             Text(const axes_t a)
                 :   drawing_t_t(a)
                 {}
             text_t text(double x, double y, const std::string s);
+
         private:
-            void config();
-            boost::mutex data_mutex;
+            void config(); ///< Configure the axes in which the text is printed
     };
 }
 #endif
