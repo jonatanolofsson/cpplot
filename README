@@ -20,7 +20,7 @@ $ sudo apt-get install freeglut3-dev
 
 To compile cpplot,
 
-$ mkdir build && cd build
+$ cd build
 $ cmake ..
 $ make
 
