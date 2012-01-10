@@ -32,7 +32,8 @@ Version:0.3.13
 
 namespace cpplot {
     figure_t_t::figure_t_t(const std::string name, const bool viz)
-                :   xPassive(100),
+                :   keyboard_callback(NULL),
+                    xPassive(100),
                     yPassive(0),
                     window_name(name),
                     window_number(0),

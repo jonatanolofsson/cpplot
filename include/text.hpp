@@ -54,7 +54,7 @@ namespace cpplot {
                 {}
             text_t text(double x, double y, const std::string s);
             void clear(); ///< Clear all data
-            void config(); ///< Configure the axes in which the text is printed
+            void config(){} ///< Configure the axes in which the text is printed
     };
 }
 #endif

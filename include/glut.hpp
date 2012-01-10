@@ -37,10 +37,16 @@ namespace cpplot {
          * Start a new thread with glut
          */
         void init(int& argc, char* argv[]);
+
         /**
          * Register a new figure to be created and drawn
          */
         void register_figure(const figure_t fig);
+
+        /**
+         * Set the title of a glut window
+         */
+        void set_window_title(const int wn, const std::string name);
     }
 }
 

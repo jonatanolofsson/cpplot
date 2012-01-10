@@ -30,8 +30,37 @@ Version:0.3.13
 #include "cpplot_common.hpp"
 
 namespace cpplot {
-    axes_t_t::axes_t_t(layer_t l) : layer(l) {
-        selected = 0;
+    axes_t_t::axes_t_t(layer_t l)
+        :   layer(l),
+            cta0(30),
+            phi0(30),
+            cta(cta0),
+            phi(cta0),
+            Mouse(false),
+            mouse_callback(NULL),
+            xmin(1e99),    xmax(-1e99),
+            ymin(1e99),    ymax(-1e99),
+            zmin(1e99),    zmax(-1e99),
+            type(_2D),
+            Box(true),
+            GridLineStyle(":"),
+            LineWidth(1),
+            TickDir("in"),
+            visible(true),
+            XGrid(false),
+            YGrid(false),
+            ZGrid(false),
+            XAxisLocation("bottom"),
+            YAxisLocation("left"),
+            XLimMode(automatic),
+            YLimMode(automatic),
+            ZLimMode(automatic),
+            XScale(math::linear_scale),
+            YScale(math::linear_scale),
+            ZScale(math::linear_scale),
+            TickLabel(true)
+    {
+        selected = false;
         position[0] = 0.13;
         position[1] = 0.11;
         position[2] = 0.775;
@@ -42,44 +71,16 @@ namespace cpplot {
         viewport3d[2] = 1.0;
         viewport3d[3] = 1.0;
 
-        Mouse   = true;
-        type    = _2D;
-        visible = true;
-        Box     = true;
-
-        cta0 = 30;
-        phi0 = 30;
-        cta = cta0;
-        phi = cta0;
-
         camera_position[0] = 1; camera_position[1] = 1; camera_position[2] = 1;
         camera_target[0]   = 0.;camera_target[1]   = 0; camera_target[2]   = 0;
         camera_up_vector[0] = 0; camera_up_vector[1] = 0; camera_up_vector[2] = 1;
-
-        LineWidth = 1;
-
-        GridLineStyle = ":";
-        XGrid = 0;
-        YGrid = 0;
-        ZGrid = 0;
 
         XLim[0] = 0;    XLim[1] = 10;
         YLim[0] = 0;    YLim[1] = 10;
         ZLim[0] = 0;    ZLim[1 ]= 10;
 
-        XLimMode = automatic; YLimMode = automatic; ZLimMode = automatic;
-        XAxisLocation = "bottom";//top | bottom
-        YAxisLocation = "left";// left | right
-        XScale = math::linear_scale;// {0:math::linear_scale} | 1:log
-        YScale = math::linear_scale;
-        ZScale = math::linear_scale;
 
-        TickLabel = true;
-        TickDir = "in";
 
-        xmin = 1e99;    xmax = -1e99;
-        ymin = 1e99;    ymax = -1e99;
-        zmin = 1e99;    zmax = -1e99;
 
         CLim[0] = 0; CLim[1] = 0;
         jet();
@@ -122,6 +123,7 @@ namespace cpplot {
     }
 
     bool axes_t_t::mouse(const int button, const int state, const int x, const int y) {
+        if(!Mouse) return false;
         if ( button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) {// Left Click
             xButtonDown = x;
             yButtonDown = y;
