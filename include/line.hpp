@@ -66,19 +66,7 @@ namespace cpplot {
             /**
              * The constructor accepts as single argument a shared pointer to the axes to which the object belongs
              */
-            Line(const axes_t a)
-                :   drawing_t_t(a),
-                    Errorbar(false),
-                    XData(), YData(), ZData(),
-                    YPData(), YMData(),
-                    Color("b"),
-                    LineStyle("-"),
-                    LineWidth(0.5),
-                    Marker("none"),
-                    MarkerSize(6),
-                    MarkerEdgeColor("k"),
-                    MarkerFaceColor("w")
-                {}
+            Line(const axes_t a);
             figure_t gcf(); ///< Get the figure to which the line belongs
 
             void draw(); ///< Draw the line on the line's axes. Used internally only.

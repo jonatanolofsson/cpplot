@@ -32,6 +32,19 @@ Version:0.3.13
 #include "color.hpp"
 
 namespace cpplot {
+    Line::Line(const axes_t a)
+        :   drawing_t_t(a),
+            Errorbar(false),
+            XData(), YData(), ZData(),
+            YPData(), YMData(),
+            Color("b"),
+            LineStyle("-"),
+            LineWidth(0.5),
+            Marker("none"),
+            MarkerSize(6),
+            MarkerEdgeColor("k"),
+            MarkerFaceColor("w")
+        {}
     figure_t Line::gcf() { return ca->gcl()->gcf(); }
     void Line::clear() {
         boost::mutex::scoped_lock l(data_mutex);
