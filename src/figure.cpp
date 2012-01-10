@@ -32,10 +32,11 @@ Version:0.3.13
 
 namespace cpplot {
     figure_t_t::figure_t_t(const std::string name, const bool viz)
-                :   window_name(name),
-                    visible(viz),
-                    xPassive(100),
-                    yPassive(0)
+                :   xPassive(100),
+                    yPassive(0),
+                    window_name(name),
+                    window_number(0),
+                    visible(viz)
     {
         position[0] = position[1] = 0;
         position[2] = position[3] = 500;
@@ -125,7 +126,7 @@ namespace cpplot {
                 glRasterPos2f( 22, h*j+h-6);
                 s = lit->second->layername;
                 gl2psText(s.c_str(), "Arial", 12);
-                for(int i = 0; i < s.size(); ++i) {
+                for(unsigned int i = 0; i < s.size(); ++i) {
                     glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, s[i] );
                 }
             }
@@ -137,7 +138,6 @@ namespace cpplot {
     void figure_t_t::mouse(const int button, const int state, const int x, const int y) {
         // Layer list click
         int l,t,w,h;
-        double dt;
         l = 1;
         t = 1;
         w = 20;//button_width;

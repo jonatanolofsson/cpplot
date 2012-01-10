@@ -106,7 +106,6 @@ namespace cpplot {
 
     // events (mouse, motion)
     bool layer_t_t::motion(const int x, const int y) {
-        float phi,cta;
         if(selected_axes) return selected_axes->motion(x,y);
         else return false;
     }

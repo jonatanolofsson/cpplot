@@ -58,7 +58,7 @@ namespace cpplot {
 
     void Surface::draw2d() {
         boost::mutex::scoped_lock l(data_mutex);
-        int nxi,nxj,nyi,nyj,nzi,nzj;
+        unsigned int nxi,nxj,nyi,nyj,nzi,nzj;
         std::vector<float> rgb;
         nxi = XData.size(); if(nxi) { nxj = XData[0].size(); }
         nyi = YData.size(); if(nyi) { nyj = YData[0].size(); }
@@ -75,9 +75,9 @@ namespace cpplot {
                 rgb = ColorSpec2RGB(EdgeColor);
                 glColor3d(rgb[0], rgb[1], rgb[2]);
 
-                for(int i = 0; i < nzi; ++i) {
+                for(unsigned int i = 0; i < nzi; ++i) {
                     glBegin(GL_LINE_STRIP); //TODO add more style
-                        for(int j = 0; j < nzj; ++j) {
+                        for(unsigned int j = 0; j < nzj; ++j) {
                             glVertex2d(ctx(ca->XLim[0]+(ca->XLim[1]-ca->XLim[0])*(float)(j)/(nzj-1)),
                                    cty(ca->YLim[0]+(ca->YLim[1]-ca->YLim[0])*(float)(i)/(nzi-1)));
                         }
@@ -86,8 +86,8 @@ namespace cpplot {
             }
             // Face
             if(FaceColor != "none") {
-                for(int i = 0; i < nzi-1; ++i) {
-                    for(int j = 0; j < nzj-1; ++j) {
+                for(unsigned int i = 0; i < nzi-1; ++i) {
+                    for(unsigned int j = 0; j < nzj-1; ++j) {
 
                         rgb = ColorSpec2RGB(FaceColor);
                         if(FaceColor == "flat") { rgb = CData[i][j]; }
@@ -117,14 +117,14 @@ namespace cpplot {
                 rgb=ColorSpec2RGB(EdgeColor);
                 glColor3d(rgb[0], rgb[1], rgb[2]);
 
-                for(int i = 0;i < nyj; ++i) {
+                for(unsigned int i = 0;i < nyj; ++i) {
                     glBegin(GL_LINE_STRIP); //TODO add more style
                         glVertex2d( ctx(XData[0][    0]),cty(YData[0][i]) );
                         glVertex2d( ctx(XData[0][nxj-1]),cty(YData[0][i]) );
                     glEnd();
                 }
 
-                for(int j = 0; j < nxj; ++j) {
+                for(unsigned int j = 0; j < nxj; ++j) {
                     glBegin(GL_LINE_STRIP);
                         glVertex2d( ctx(XData[0][j]),cty(YData[0][0])    );
                         glVertex2d( ctx(XData[0][j]),cty(YData[0][nyj-1]));
@@ -133,8 +133,8 @@ namespace cpplot {
             }
             // Face
             if(FaceColor != "none") {
-                for(int i = 0; i < nyj-1; ++i) {
-                    for(int j = 0; j < nxj-1; ++j) {
+                for(unsigned int i = 0; i < nyj-1; ++i) {
+                    for(unsigned int j = 0; j < nxj-1; ++j) {
                         // color
                         rgb = ColorSpec2RGB(FaceColor);
                         if(FaceColor == "flat") { rgb = CData[i][j]; }
@@ -164,17 +164,17 @@ namespace cpplot {
                 rgb = ColorSpec2RGB(EdgeColor);
                 glColor3d(rgb[0], rgb[1], rgb[2]);
 
-                for(int i = 0; i < nxi; ++i) {
+                for(unsigned int i = 0; i < nxi; ++i) {
                     glBegin(GL_LINE_STRIP); //TODO add more style
-                        for(int j = 0; j < nxj; ++j) {
+                        for(unsigned int j = 0; j < nxj; ++j) {
                             glVertex2d(ctx(XData[i][j]),
                                    cty(YData[i][j]));
                         }
                     glEnd();
                 }
-                for(int j = 0; j < nxi; ++j) {
+                for(unsigned int j = 0; j < nxi; ++j) {
                     glBegin(GL_LINE_STRIP);
-                        for(int i = 0; i < nxj; ++i) {
+                        for(unsigned int i = 0; i < nxj; ++i) {
                             glVertex2d(ctx(XData[i][j]),
                                    cty(YData[i][j]));
                         }
@@ -183,8 +183,8 @@ namespace cpplot {
             }
             // Face
             if(FaceColor != "none") {
-                for(int i = 0; i < nxi-1; ++i) {
-                    for(int j = 0; j < nxj-1; ++j) {
+                for(unsigned int i = 0; i < nxi-1; ++i) {
+                    for(unsigned int j = 0; j < nxj-1; ++j) {
                         // color
                         rgb = ColorSpec2RGB(FaceColor);
                         if(FaceColor == "flat") { rgb = CData[i][j]; }
@@ -210,15 +210,15 @@ namespace cpplot {
     void Surface::draw3d() {
         boost::mutex::scoped_lock l(data_mutex);
         std::vector<float> rgb;
-        int ny = ZData.size();
-        int nx = ZData[0].size();
+        unsigned int ny = ZData.size();
+        unsigned int nx = ZData[0].size();
 
         if(XData.size() == 1) {
             //(x,y,Z);
             //Face
             if(FaceColor != "none") {
-                for(int i = 0; i < ny-1; ++i) {
-                    for(int j = 0; j < nx-1; ++j) {
+                for(unsigned int i = 0; i < ny-1; ++i) {
+                    for(unsigned int j = 0; j < nx-1; ++j) {
                         rgb = ColorSpec2RGB(FaceColor);
                         glColor3d(rgb[0], rgb[1], rgb[2]);
                         if(FaceColor=="flat") {
@@ -256,18 +256,18 @@ namespace cpplot {
                 rgb = ColorSpec2RGB(EdgeColor);
                 glColor3d(rgb[0], rgb[1], rgb[2]);
 
-                for(int i = 0; i < ny; ++i) {
+                for(unsigned int i = 0; i < ny; ++i) {
                     glBegin(GL_LINE_STRIP);
-                        for(int j = 0; j < nx; ++j) {
+                        for(unsigned int j = 0; j < nx; ++j) {
                             glVertex3d( ct3x(XData[0][j]),
                                         ct3y(YData[0][i]),
                                         ct3z(ZData[i][j]));
                         }
                     glEnd();
                 }
-                for(int j=0;j<nx;++j) {
+                for(unsigned int j = 0; j < nx; ++j) {
                     glBegin(GL_LINE_STRIP);
-                        for(int i = 0; i < ny; ++i) {
+                        for(unsigned int i = 0; i < ny; ++i) {
                             glVertex3d( ct3x(XData[0][j]),
                                         ct3y(YData[0][i]),
                                         ct3z(ZData[i][j]));
@@ -282,8 +282,8 @@ namespace cpplot {
 
             //Face
             if(FaceColor != "none") {
-                for(int i = 0; i < ny-1; ++i) {
-                    for(int j = 0; j < nx-1; ++j) {
+                for(unsigned int i = 0; i < ny-1; ++i) {
+                    for(unsigned int j = 0; j < nx-1; ++j) {
                         rgb = ColorSpec2RGB(FaceColor);
                         glColor3d(rgb[0], rgb[1], rgb[2]);
                         if(FaceColor=="flat") {
@@ -323,18 +323,18 @@ namespace cpplot {
                 rgb = ColorSpec2RGB(EdgeColor);
                 glColor3d(rgb[0], rgb[1], rgb[2]);
 
-                for(int i = 0; i < ny; ++i) {
+                for(unsigned int i = 0; i < ny; ++i) {
                     glBegin(GL_LINE_STRIP);
-                    for(int j = 0; j < nx; ++j) {
+                    for(unsigned int j = 0; j < nx; ++j) {
                     glVertex3d( ct3x(XData[i][j]),
                                 ct3y(YData[i][j]),
                                 ct3z(ZData[i][j]));
                     }
                     glEnd();
                 }
-                for(int j = 0; j < nx; ++j) {
+                for(unsigned int j = 0; j < nx; ++j) {
                     glBegin(GL_LINE_STRIP);
-                    for(int i = 0; i < ny; ++i) {
+                    for(unsigned int i = 0; i < ny; ++i) {
                     glVertex3d( ct3x(XData[i][j]),
                                 ct3y(YData[i][j]),
                                 ct3z(ZData[i][j]));
@@ -351,24 +351,20 @@ namespace cpplot {
     void Surface::contourc(const dvec& x, const dvec& y, const dmat& Z, const dvec& v, dmat& C) {
         //Z(i,j), x(j),y(i)
         double x0, y0, z0;
-        int ny = Z.size();
-        int nx = Z[0].size();
+        unsigned int ny = Z.size();
+        unsigned int nx = Z[0].size();
         ContourPoint c;
         std::vector<ContourPoint> vc;
         std::deque<ContourPoint> ac;
         C.resize(2);
 
-        int is_print=0;
-
-
-
-        for(int iv = 0; iv < v.size(); ++iv) {
+        for(unsigned int iv = 0; iv < v.size(); ++iv) {
             z0 = v[iv];
 
             // find contour points
             vc.clear();
-            for(int i = 0; i < ny; ++i) {
-                for(int j = 0; j < nx; ++j) {
+            for(unsigned int i = 0; i < ny; ++i) {
+                for(unsigned int j = 0; j < nx; ++j) {
                     if( ( j < nx-1 ) && ( (Z[i][j+1] - z0)*(Z[i][j] - z0) < 0 ) ) {
                         x0 = x[j] + ( x[j+1] - x[j] )*( z0 - Z[i][j] )/( Z[i  ][j+1]-Z[i][j] );
                         c.xj = j; c.yi = i; c.xy = 0; c.done = 0;
@@ -383,27 +379,21 @@ namespace cpplot {
                     }
                 }
             }
-            if(is_print) {
-                printf("vc.size %d\n",(int)vc.size());
-                for(int k = 0;k < vc.size(); ++k) {
-                    printf("vc: %2d : %2d %2d :%f %f\n",k,vc[k].xj,vc[k].yi,vc[k].x,vc[k].y);
-                }
-            }
             // sort contour points
-            int is,is_connect=0;
-            int m,k,l,kk;
-            int mode,mode_next;
+            int is = 0;
+            unsigned int m, k, kk;
+            int mode, mode_next;
 
             k = 0;
             mode = 0;
-            while( mode<5 ) {
+            while( mode < 5 ) {
 
                 if(mode == 0) {// set initial contour point
                     ac.clear();
                     is = 0; m = 0;
                     while( !is && (m < vc.size()) ) {
                         if(!vc[m].done) { is=1; kk=m; }
-                        m++;
+                        ++m;
                     }
                     if(is) {
                         vc[kk].done = 2;
@@ -465,7 +455,7 @@ namespace cpplot {
                     if(ac.size()) {
                         C[0].push_back(z0);
                         C[1].push_back(ac.size());
-                        for(int i = 0; i < ac.size(); ++i) {
+                        for(unsigned int i = 0; i < ac.size(); ++i) {
                             C[0].push_back( ac[i].x );
                             C[1].push_back( ac[i].y );
                         }
@@ -477,13 +467,6 @@ namespace cpplot {
             }
 
         }//iv
-        // print
-        if(is_print) {
-            for(int i = 0; i < C[0].size(); ++i) {
-                printf("C: %3d %f %f\n", i, C[0][i],C[1][i]);
-            }
-            std::cout << "done" << std::endl;
-        }
     }
 
 
@@ -509,10 +492,10 @@ namespace cpplot {
         glColor3f(0,0,0);
 
         //TODO: adjust line color and properties
-        int k = 0, nk;
-        for(int i = 0; i < C[0].size(); ++i) {
+        unsigned int k = 0, nk;
+        for(unsigned int i = 0; i < C[0].size(); ++i) {
             if(k == 0) {
-                nk = (int)C[1][i];
+                nk = (unsigned int)C[1][i];
                 glBegin(GL_LINE_STRIP);
             } else{
                 if(k <= nk) {
@@ -532,17 +515,17 @@ namespace cpplot {
     void Surface::config() {
         boost::mutex::scoped_lock l(data_mutex);
         // check data size
-        int nzi,nzj;
+        unsigned int nzi,nzj;
 
         nzi = ZData.size();
         if(nzi) { nzj = ZData[0].size(); }
 
-        int nci,ncj;
+        unsigned int nci,ncj;
         nci = CDataIndex.size();
         if(nci) { ncj = CDataIndex[0].size(); }
 
         // generate x and y data
-        int nx = 0,ny = 0;
+        unsigned int nx = 0,ny = 0;
         if(nzi) { ny = nzi; nx=nzj; }
         if(nci) { ny = nci; nx=ncj; }
 
@@ -577,9 +560,9 @@ namespace cpplot {
             //tcmat cdata(ny,nx);
             tcmat cdata(ny);
 
-            for(int i = 0; i < ny; ++i) {
+            for(unsigned int i = 0; i < ny; ++i) {
                 cdata[i].resize(nx);
-                for(int j = 0; j < nx; ++j) {
+                for(unsigned int j = 0; j < nx; ++j) {
                     rgb = ca->map2color(CDataIndex[i][j]);
                     cdata[i][j] = rgb;
                 }
@@ -604,6 +587,7 @@ namespace cpplot {
         else if(c == "flat") {
             EdgeColor="none";
         }
+        return shared_from_this();
     }
 
         /// create surface

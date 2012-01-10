@@ -1,9 +1,9 @@
 #include "cpplot.hpp"
 
-int is_run=1;
+bool is_run = true;
 
-void keyboard(unsigned char key, int x, int y) {
-    if(key=='r'){ if(is_run==0){is_run=1;}else{is_run=0;}}
+void keyboard(unsigned char key, int, int) {
+    if(key == 'r'){ is_run = !is_run; }
 }
 
 int main(int argc, char* argv[]){

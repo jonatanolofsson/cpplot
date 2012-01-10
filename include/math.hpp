@@ -49,7 +49,7 @@ namespace cpplot {
         template<typename T>
         T max(const std::vector<std::vector<T> >& x) {
             double res = std::numeric_limits<double>::min();
-            for(int i = 0; i < x.size(); ++i) {
+            for(unsigned int i = 0; i < x.size(); ++i) {
                 res = std::max(res, max(x[i]));
             }
             return res;
@@ -59,7 +59,7 @@ namespace cpplot {
         template<typename T>
         T  min(const std::vector<std::vector<T> >& x) {
             double res = std::numeric_limits<double>::max();
-            for(int i = 0; i < x.size(); ++i) {
+            for(unsigned int i = 0; i < x.size(); ++i) {
                 res = std::min(res, min(x[i]));
             }
             return res;
@@ -69,10 +69,10 @@ namespace cpplot {
          * Generate n equidistant numbers between [min, max]
          */
         template<typename T>
-        T linspace(const double min, const double max, int n) {
+        T linspace(const double min, const double max, unsigned int n) {
             if(n<1) { n = 1; }
             T a(n);
-            for(int i = 0; i < n; ++i) {
+            for(unsigned int i = 0; i < n; ++i) {
                 a[i] = min + (max-min)*i/(n-1);
             }
             return a;

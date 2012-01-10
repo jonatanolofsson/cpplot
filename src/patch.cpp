@@ -51,7 +51,7 @@ namespace cpplot {
         std::vector<float> v(3);
         std::vector<int> f(3);
         float x,y;
-        for(int i = 0; i < faces.size(); ++i) {
+        for(unsigned int i = 0; i < faces.size(); ++i) {
             f = faces[i];
             glBegin(GL_TRIANGLES);
                 x = ctx(vertices[f[0]][0]);
@@ -103,7 +103,7 @@ namespace cpplot {
                 }
 
                 glBegin(GL_POLYGON);
-                    for(int iv=0;iv<nv;++iv) {
+                    for(int iv = 0; iv < nv; ++iv) {
                         glVertex2d( ctx(XData[i][iv]),
                                     cty(YData[i][iv]) );
                     }
@@ -117,11 +117,11 @@ namespace cpplot {
     void Patch::draw3d() {
         boost::mutex::scoped_lock l(data_mutex);
         // XYZ Data //
-        int nf, nv; //number of faces and vertex
+        unsigned int nf, nv; //number of faces and vertex
         nf = XData.size();
         std::vector<float> rgb;
 
-        for(int i = 0; i < nf; ++i) {
+        for(unsigned int i = 0; i < nf; ++i) {
             nv = XData[i].size();
 
             // Edge
@@ -133,7 +133,7 @@ namespace cpplot {
                 glColor3f(rgb[0], rgb[1], rgb[2]);
 
                 glBegin(GL_LINE_LOOP);
-                    for(int iv=0;iv<nv;++iv) {
+                    for(unsigned int iv = 0; iv < nv; ++iv) {
                         glVertex3d( ct3x(XData[i][iv]),
                                     ct3y(YData[i][iv]),
                                     ct3z(ZData[i][iv]) );
@@ -146,13 +146,13 @@ namespace cpplot {
                 rgb = ColorSpec2RGB(FaceColor);
                 glColor3f(rgb[0], rgb[1], rgb[2]);
 
-                if(CData.size()) {
+                if(CData.size() > 0) {
                     rgb = CData[i];
                     glColor3d(rgb[0], rgb[1], rgb[2]);
                 }
 
                 glBegin(GL_POLYGON);
-                    for(int iv=0;iv<nv;++iv) {
+                    for(unsigned int iv = 0; iv < nv; ++iv) {
                         glVertex3d( ct3x(XData[i][iv]),
                                     ct3y(YData[i][iv]),
                                     ct3z(ZData[i][iv]));
@@ -167,7 +167,7 @@ namespace cpplot {
 
     patch_t Patch::bar(const dvec& y, float width) {
         dvec x(y.size());
-        for(int i=0;i<y.size();++i) {
+        for(unsigned int i = 0; i < y.size(); ++i) {
             x[i] = (double)(1+i);
         }
         return bar(x,y,width);
@@ -181,7 +181,7 @@ namespace cpplot {
         double wx = width*( math::max(x) - math::min(x) ) / x.size();
 
         dvec X(4),Y(4);
-        for(int i = 0; i < x.size(); ++i) {
+        for(unsigned int i = 0; i < x.size(); ++i) {
             X[0] = x[i] - wx/2.0; Y[0] = 0;
             X[1] = x[i] + wx/2.0; Y[1] = 0;
             X[2] = x[i] + wx/2.0; Y[2] = y[i];
@@ -301,7 +301,7 @@ namespace cpplot {
         }
         std::vector<float> rgb;
         tcvec tc;
-        for(int j = 0; j < IC.size(); ++j) {
+        for(unsigned int j = 0; j < IC.size(); ++j) {
             rgb = ca->map2color(IC[j]);
             tc.push_back(rgb);
         }

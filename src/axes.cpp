@@ -257,7 +257,7 @@ namespace cpplot {
             if(XGrid) {
                 glLineWidth(LineWidth);
                 gl2psLineWidth(LineWidth);
-                for(int i = 0; i < XTick.size(); ++i) {
+                for(unsigned int i = 0; i < XTick.size(); ++i) {
 
                     //cout <<"grid "<<gridlinestyle<<" "<<XTick[i]<<endl;
 
@@ -287,7 +287,7 @@ namespace cpplot {
                 }
             }
             if(YGrid) {
-                for(int i = 0; i < XTick.size(); ++i) {
+                for(unsigned int i = 0; i < XTick.size(); ++i) {
                     if(gridlinestyle == 1) {// -
                         glDisable(GL_LINE_STIPPLE);
                         gl2psDisable(GL2PS_LINE_STIPPLE);
@@ -322,7 +322,7 @@ namespace cpplot {
             gl2psDisable(GL2PS_LINE_STIPPLE);
             //TODO precise adjustment of tick location
             // x tick
-            for(int i = 0; i < XTick.size(); ++i) {
+            for(unsigned int i = 0; i < XTick.size(); ++i) {
                 glBegin(GL_LINE_STRIP);
                     glVertex2d( ctx(XTick[i]),b );
                     glVertex2d( ctx(XTick[i]),b+tickdir*0.01 );//b-0.02*h
@@ -330,7 +330,7 @@ namespace cpplot {
             }
             // x tick label
             if(TickLabel) {
-                for(int i = 0; i < XTick.size(); ++i) {
+                for(unsigned int i = 0; i < XTick.size(); ++i) {
                     sprintf(ctmp,"%4.1f",XTick[i]);
                     //ptext( ctx(XTick[i])-0.02, b-0.025,ctmp );//b-0.05*h
                     ptext( ctx(XTick[i])-(float)num_char*char_w/window_w()/2.0,
@@ -338,7 +338,7 @@ namespace cpplot {
                 }
             }
             // y tick
-            for(int i = 0; i < YTick.size(); ++i) {
+            for(unsigned int i = 0; i < YTick.size(); ++i) {
                 glBegin(GL_LINE_STRIP);
                     glVertex2d( l,             cty(YTick[i]) );
                     glVertex2d( l+tickdir*0.01,cty(YTick[i]) );
@@ -346,7 +346,7 @@ namespace cpplot {
             }
             // y tick label
             if(TickLabel) {
-                for(int i = 0; i < YTick.size(); ++i) {
+                for(unsigned int i = 0; i < YTick.size(); ++i) {
                     sprintf(ctmp,"%4.1f", YTick[i]);
                     //ptext( l-0.05,cty(YTick[i])-0.0,ctmp );
                     ptext( l-(float)num_char*char_w/window_w()-offset,
@@ -383,7 +383,6 @@ namespace cpplot {
     void axes_t_t::draw3d() {
         char ctmp[100];
         float l,b,w,h;//left,bottom,width,height
-        float r=0.01;
 
         l = position[0];
         b = position[1];
@@ -406,33 +405,6 @@ namespace cpplot {
               //gluLookAt(camera_position[0],camera_position[1],camera_position[2],
               camera_target[0],  camera_target[1],  camera_target[2],
               camera_up_vector[0],camera_up_vector[1],camera_up_vector[2]);
-
-        /*
-        // x,y,z axes for test
-        glColor3f(1,0,0);
-        glBegin(GL_LINE_STRIP);
-        glVertex3d(0,0,0); glVertex3d(1,0,0);
-        glEnd();
-
-        glColor3f(0,1,0);
-        glBegin(GL_LINE_STRIP);
-        glVertex3d(0,0,0); glVertex3d(0,1,0);
-        glEnd();
-
-        glColor3f(0,0,1);
-        glBegin(GL_LINE_STRIP);
-        glVertex3d(0,0,0); glVertex3d(0,0,1);
-        glEnd();
-
-        glColor3f(0,0,0);
-        glBegin(GL_LINE_LOOP);
-        glVertex3d(-1,-1,0); glVertex3d(1,-1,0); glVertex3d(1,1,0); glVertex3d(-1,1,0);
-        glEnd();
-        */
-
-        int char_w = 6,char_h = 12;
-        float offset = 0.01;
-        int num_char = 4;
 
         if(Box) {
             // tick
@@ -468,21 +440,21 @@ namespace cpplot {
 
             // Tick //
             //x
-            for(int i = 0; i < XTick.size(); ++i) {
+            for(unsigned int i = 0; i < XTick.size(); ++i) {
                 glBegin(GL_LINE_STRIP);
                     glVertex3d( ct3x(XTick[i]),signy   ,-1 );
                     glVertex3d( ct3x(XTick[i]),signy*r1,-1 );
                 glEnd();
             }
             // y
-            for(int i = 0; i < YTick.size(); ++i) {
+            for(unsigned int i = 0; i < YTick.size(); ++i) {
                 glBegin(GL_LINE_STRIP);
                     glVertex3d( signx   ,ct3y(YTick[i]),-1 );
                     glVertex3d( signx*r1,ct3y(YTick[i]),-1 );
                 glEnd();
             }
             // z
-            for(int i = 0; i < YTick.size(); ++i) {
+            for(unsigned int i = 0; i < YTick.size(); ++i) {
                 glBegin(GL_LINE_STRIP);
                     glVertex3d( signy   , -signx, ct3z(ZTick[i]) );
                     glVertex3d( signy*r1, -signx, ct3z(ZTick[i]) );
@@ -491,17 +463,17 @@ namespace cpplot {
             // Tick Label //
             if(TickLabel) {
                 //x
-                for(int i = 0; i < XTick.size(); ++i) {
+                for(unsigned int i = 0; i < XTick.size(); ++i) {
                     sprintf(ctmp,"%4.1f",XTick[i]);
                     ptext3c( ct3x(XTick[i]),signy*r2 ,-1,ctmp );
                 }
                 // y
-                for(int i = 0; i < YTick.size(); ++i) {
+                for(unsigned int i = 0; i < YTick.size(); ++i) {
                     sprintf(ctmp,"%4.1f",YTick[i]);
                     ptext3c( signx*r2,ct3y(YTick[i]),-1,ctmp );
                 }
                 // z
-                for(int i = 0; i < ZTick.size(); ++i) {
+                for(unsigned int i = 0; i < ZTick.size(); ++i) {
                     sprintf(ctmp,"%4.1f",ZTick[i]);
                     ptext3c( signy*r2,-signx,ct3z(ZTick[i]),ctmp );
                 }
@@ -545,7 +517,6 @@ namespace cpplot {
     void axes_t_t::draw_colorbar() {
         char ctmp[100];
         float l,b,w,h;//left,bottom,width,height
-        float r = 0.01;
 
         l = position[0];
         b = position[1];
@@ -573,22 +544,22 @@ namespace cpplot {
             glEnd();
 
             // z tick
-            for(int i = 0; i < ZTick.size(); ++i) {
+            for(unsigned int i = 0; i < ZTick.size(); ++i) {
                 glBegin(GL_LINE_STRIP);
                     glVertex2d( l+w,       cty(ZTick[i]) );
                     glVertex2d( l+w+0.01,  cty(ZTick[i]) );
                 glEnd();
             }
             // z tick number
-            for(int i = 0; i < ZTick.size(); ++i) {
+            for(unsigned int i = 0; i < ZTick.size(); ++i) {
                 sprintf(ctmp,"%4.1f",ZTick[i]);
                 ptext( l+w+0.01,cty(ZTick[i]),ctmp );
             }
         }//Box
 
         std::vector<float> rgb;
-        int n = cmap.size();
-        for(int i = 0; i < n; ++i) {
+        unsigned int n = cmap.size();
+        for(unsigned int i = 0; i < n; ++i) {
             rgb = cmap[i];
             glColor3f(rgb[0], rgb[1], rgb[2]);
 
@@ -788,9 +759,9 @@ namespace cpplot {
             rgb[2] = 1-t;
             return rgb;
         }
-        else if( c == "Bone" ) {
+        else { // if( c == "Bone" ) {
             rgb[0] = t;
-            //rgb[1]=t;if(t<0.8) { rgb[1]=t; }
+            rgb[1] = t < 0.8 ? t : 0.8;
             rgb[2] = t;
             return rgb;
         }
@@ -799,7 +770,6 @@ namespace cpplot {
     void axes_t_t::colormap(const std::string c) {
         //if(is_debug1) { printf("colormap %s \n",c.c_str()); }
         const int n = 64;
-        float t;
 
         cmap.clear();
         for(int i = 0; i < n; ++i) {

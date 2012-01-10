@@ -38,7 +38,7 @@ namespace cpplot {
 
 
     inline figure_t gcf() { return cf ? cf : figure(0); } ///< Get a pointer to the currently active figure
-    inline axes_t subplot(const int m, const int n, const int p) { return gcf()->gcl()->subplot(m,n,p); }; ///< Get a new axes object, placed as a subplot in the current layer
+    inline axes_t subplot(const int m, const int n, const int p) { return gcf()->gcl()->subplot(m,n,p); } ///< Get a new axes object, placed as a subplot in the current layer
     //void legend(string s,int N);
 
     // interface ///
@@ -109,7 +109,7 @@ namespace cpplot {
     inline surface_t surface(const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(Z, C); } ///< See surface.hpp
     inline surface_t surface(const dvec& x, const dvec& y, const dmat& Z) { return gca()->add<Surface>()->surface(x,y,Z); } ///< See surface.hpp
     inline surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const dmat& C) { return gca()->add<Surface>()->surface(x,y,Z,C); } ///< See surface.hpp
-    inline surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(x,y,Z); } ///< See surface.hpp
+    inline surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(x,y,Z,C); } ///< See surface.hpp
     inline surface_t surface(const dmat& X, const dmat& Y, const dmat& Z) { return gca()->add<Surface>()->surface(X,Y,Z); } ///< See surface.hpp
     inline surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const dmat& C) { return gca()->add<Surface>()->surface(X,Y,Z,C); } ///< See surface.hpp
     inline surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(X,Y,Z,C); } ///< See surface.hpp
@@ -151,7 +151,7 @@ namespace cpplot {
     inline text_t text(const double x, const double y, const std::string s) { return gca()->add<Text>()->text(x,y,s); } ///< See text.hpp
 
     inline axes_t colorbar() { return gca()->colorbar(); } ///< See axes.hpp
-    inline void gray() { gca()->gray(); }; ///< See axes.hpp
+    inline void gray() { gca()->gray(); } ///< See axes.hpp
     inline void jet() { gca()->jet(); } ///< See axes.hpp
     inline void hsv() { gca()->hsv(); } ///< See axes.hpp
     inline void hot() { gca()->hot(); } ///< See axes.hpp

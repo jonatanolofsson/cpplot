@@ -86,7 +86,7 @@ namespace cpplot {
                 }
 
                 glBegin(GL_LINE_STRIP);
-                for(int i = 0; i < XData.size(); ++i) {
+                for(unsigned int i = 0; i < XData.size(); ++i) {
                     //printf("i:%d %f %f\n",i,xx,yy);
                     xx = ctx(XData[i]);
                     yy = cty(YData[i]);
@@ -108,7 +108,7 @@ namespace cpplot {
                 gl2psDisable(GL2PS_LINE_STIPPLE);
 
                 if(Marker == ".") {//.
-                    for(int i = 0; i < XData.size(); ++i) {
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -119,7 +119,7 @@ namespace cpplot {
                     }
                 }
                 else if(Marker == "+") {//+
-                    for(int i = 0; i < XData.size(); ++i) {
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -135,7 +135,7 @@ namespace cpplot {
                     }
                 }
                 else if(Marker == "x") {//x
-                    for(int i = 0; i < XData.size(); ++i) {
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -150,7 +150,7 @@ namespace cpplot {
                     }
                 }
                 else if(Marker == "d") {//d diamond
-                    for(int i = 0; i < XData.size(); ++i) {
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -163,7 +163,7 @@ namespace cpplot {
                     }
                 }
                 else if(Marker == "^") {//^
-                    for(int i = 0; i < XData.size(); ++i) {
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -175,7 +175,7 @@ namespace cpplot {
                     }
                 }
                 else if(Marker == "v") {//v
-                    for(int i = 0; i < XData.size(); ++i) {
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -187,7 +187,7 @@ namespace cpplot {
                     }
                 }
                 else if(Marker == "o") {//o
-                    for(int i = 0; i < XData.size(); ++i) {
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -199,8 +199,21 @@ namespace cpplot {
                         glEnd();
                     }
                 }
-                if(Marker == "*") {//*
-                    for(int i = 0; i < XData.size(); ++i) {
+                else if(Marker == "s") {//s :squire
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
+                        xx = ctx(XData[i]);
+                        yy = cty(YData[i]);
+
+                        glBegin(GL_LINE_LOOP);
+                            glVertex2d(xx-rx,yy-ry);
+                            glVertex2d(xx-rx,yy+ry);
+                            glVertex2d(xx+rx,yy+ry);
+                            glVertex2d(xx+rx,yy-ry);
+                        glEnd();
+                    }
+                }
+                else { // if(Marker == "*") {//*
+                    for(unsigned int i = 0; i < XData.size(); ++i) {
                         xx = ctx(XData[i]);
                         yy = cty(YData[i]);
 
@@ -222,19 +235,6 @@ namespace cpplot {
                         glEnd();
                     }
                 }
-                if(Marker == "s") {//s :squire
-                    for(int i = 0; i < XData.size(); ++i) {
-                        xx = ctx(XData[i]);
-                        yy = cty(YData[i]);
-
-                        glBegin(GL_LINE_LOOP);
-                            glVertex2d(xx-rx,yy-ry);
-                            glVertex2d(xx-rx,yy+ry);
-                            glVertex2d(xx+rx,yy+ry);
-                            glVertex2d(xx+rx,yy-ry);
-                        glEnd();
-                    }
-                }
             }// Marker
 
 
@@ -245,7 +245,7 @@ namespace cpplot {
                 gl2psDisable(GL2PS_LINE_STIPPLE);
                 //r=MarkerSize/500;
 
-                for(int i = 0; i < XData.size(); ++i) {
+                for(unsigned int i = 0; i < XData.size(); ++i) {
                     xx  = ctx(XData[i]);
                     yy  = cty(YData[i]);
                     yyp = cty(YData[i] + YPData[i]);
@@ -275,7 +275,7 @@ namespace cpplot {
         // 3D //
         else {
             glBegin(GL_LINE_STRIP);
-            for(int i = 0; i < XData.size(); ++i) {
+            for(unsigned int i = 0; i < XData.size(); ++i) {
                 glVertex3d(ct3x(XData[i]),
                        ct3y(YData[i]),
                        ct3z(ZData[i]));
@@ -286,7 +286,6 @@ namespace cpplot {
 
     std::pair<double, double> Line::min_max(const dvec& data, math::scale scale_ = math::linear_scale) {
         boost::mutex::scoped_lock l(data_mutex);
-        double t;
         std::pair<double, double> mm(std::numeric_limits<double>::max(), std::numeric_limits<double>::min());
         if(scale_ == math::linear_scale) {//linear_scale
             for(dvec::const_iterator i = data.begin(); i != data.end(); ++i) {
@@ -365,8 +364,8 @@ namespace cpplot {
 
     line_t Line::plot(std::valarray<double> x, std::valarray<double> y) {
         dvec xx,yy;
-        for(int i = 0; i < x.size(); ++i) { xx.push_back(x[i]); }
-        for(int i = 0; i < y.size(); ++i) { yy.push_back(y[i]); }
+        for(unsigned int i = 0; i < x.size(); ++i) { xx.push_back(x[i]); }
+        for(unsigned int i = 0; i < y.size(); ++i) { yy.push_back(y[i]); }
         return line(xx,yy);
     }
     line_t Line::semilogx(const dvec& x, const dvec& y) {
@@ -404,12 +403,12 @@ namespace cpplot {
         YMData.push_back(em);
     }
     line_t Line::errorbar(const dvec& x, const dvec& y,dvec e) {
-        for(int i=0;i<x.size();++i) { vertex(x[i],y[i],e[i],e[i]); }
+        for(unsigned int i = 0; i < x.size(); ++i) { vertex(x[i],y[i],e[i],e[i]); }
         Errorbar = 1;
         return shared_from_this();
     }
     line_t Line::errorbar(const dvec& x, const dvec& y,dvec ep, const dvec& em) {
-        for(int i=0;i<x.size();++i) { vertex(x[i],y[i],ep[i],em[i]); }
+        for(unsigned int i = 0; i < x.size(); ++i) { vertex(x[i],y[i],ep[i],em[i]); }
         Errorbar = 1;
         return shared_from_this();
     }
