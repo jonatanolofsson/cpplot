@@ -1,2 +1,3 @@
 project(GL2PS)
-add_library(gl2ps gl2ps.c)
+set(CMAKE_CXX_FLAGS "-ggdb -Wall -Wextra -fPIC")
+add_library(gl2ps SHARED gl2ps.c)
