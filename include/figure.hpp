@@ -68,6 +68,11 @@ namespace cpplot {
              */
             ~figure_t_t();
 
+            void set_window_name(const std::string name) {
+                window_name = name;
+                if(window_number) glut::set_window_title(window_number, name);
+            }
+
             /**
              * Create a new layer in the figure
              */

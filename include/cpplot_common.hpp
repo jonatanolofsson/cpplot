@@ -53,4 +53,7 @@ Version:0.3.13
 #include "layer.hpp"
 #include "figure.hpp"
 
+#define PUBLIC  __attribute__ ((visibility ("default")))
+#define LOCAL  __attribute__ ((visibility ("hidden")))
+
 #endif

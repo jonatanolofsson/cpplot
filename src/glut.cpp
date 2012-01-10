@@ -53,6 +53,12 @@ namespace cpplot {
         window_queue_t window_queue;
         boost::mutex wq_mutex;
 
+        void set_window_title(const int wn, const std::string name) {
+            assert(wn);
+            glutSetWindow(wn);
+            glutSetWindowTitle(name.c_str());
+        }
+
         void create_window(const figure_t fig) {
             glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH );
             glutInitWindowPosition( fig->position[0], fig->position[1] );

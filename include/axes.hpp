@@ -66,8 +66,8 @@ namespace cpplot {
             axes_t_t(layer_t);
             ~axes_t_t(){children.clear();} ///< The destructor makes sure it retains no hooks on its children when its dead
             layer_t gcl() { return layer; } ///< Get the parent layer
-            float cta,phi;  ///< controlled by mouse
             float cta0,phi0;///< default value or specified by command line
+            float cta,phi;  ///< controlled by mouse
             // Mouse
             double XMouse,YMouse; ///< Last clicked position
             bool Mouse; ///< Capture the mouse actions

@@ -13,6 +13,7 @@ Version:0.3.13
 #include <algorithm>
 #include <cstdio>
 #include <boost/thread.hpp>
+#include <boost/thread/mutex.hpp>
 #include <iostream>
 
 namespace cpplot {
@@ -20,12 +21,13 @@ namespace cpplot {
     figure_t cf;
     typedef std::map<std::string, figure_t> figuremap;
     figuremap named_figures;
+    boost::mutex figures_mutex;
 
     figure_t figure(const std::string name) {
         figure_t f = named_figures[name];
         if(f == NULL) {
-            named_figures[name] = f = figure(figures.size());
-            f->window_name = name;
+            named_figures[name] = f = figure();
+            f->set_window_name(name);
         }
         return f;
     }
@@ -37,41 +39,16 @@ namespace cpplot {
 
     figure_t figure(const int i) {
         if(i > max_figure_number) max_figure_number = i;
+        boost::mutex::scoped_lock l(figures_mutex);
         cf = figures[i];
         if(cf == NULL) {
             figure_t p(new figure_t_t());
             cf = p;
             glut::register_figure(p);
-            figures.insert(figures_t::value_type(i,p));
+            figures[i] = p;
             return cf;
         } else {
             return cf;
         }
     }
-
-
-    //~ void run_free();
-    //~ class cpplotrun {
-        //~ public:
-            //~ boost::thread cpplot_thread;
-            //~ boost::barrier* init_barrier;
-            //~ cpplotrun() {
-                //~ init_barrier = new boost::barrier(2);
-                //~ std::cout << "cpplot init.." << std::endl;
-                //~ cpplot_thread = boost::thread(run_free);
-                //~ init_barrier->wait();
-                //~ std::cout << "cpplot initialized!" << std::endl;
-            //~ }
-            //~ ~cpplotrun() { std::cout << "Exiting, joining thread.." << std::endl; cpplot_thread.join(); }
-    //~ } _cpplotinit_;
-//~
-    //~ void run_free() {
-        //~ std::cout << "Running free!" << std::endl;
-        //~ int argc = 0;
-        //~ char* argv[0];
-        //~ glut::init(argc, argv);
-        //~ _cpplotinit_.init_barrier->wait();
-        //~ std::cout << "Spinning..." << std::endl;
-        //~ glut::spin();
-    //~ }
 }
