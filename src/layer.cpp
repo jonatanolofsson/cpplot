@@ -54,7 +54,7 @@ namespace cpplot {
         return ca;
     }
 
-    const bool layer_t_t::mouse(const int button, const int state, const int x, const int y) {
+    bool layer_t_t::mouse(const int button, const int state, const int x, const int y) {
         float X,Y;
         double rx,ry,mx,my;//mouse
         X = (float)                  x  / figure->window_w;
@@ -104,8 +104,8 @@ namespace cpplot {
         return false; // Continue propagation
     }
 
-    /// events (mouse, motion)
-    const bool layer_t_t::motion(const int x, const int y) {
+    // events (mouse, motion)
+    bool layer_t_t::motion(const int x, const int y) {
         float phi,cta;
         if(selected_axes) return selected_axes->motion(x,y);
         else return false;
