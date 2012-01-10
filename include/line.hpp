@@ -69,15 +69,15 @@ namespace cpplot {
             Line(const axes_t a)
                 :   drawing_t_t(a),
                     Errorbar(false),
+                    XData(), YData(), ZData(),
+                    YPData(), YMData(),
                     Color("b"),
                     LineStyle("-"),
                     LineWidth(0.5),
                     Marker("none"),
                     MarkerSize(6),
                     MarkerEdgeColor("k"),
-                    MarkerFaceColor("w"),
-                    XData(), YData(), ZData(),
-                    YPData(), YMData()
+                    MarkerFaceColor("w")
                 {}
             figure_t gcf(); ///< Get the figure to which the line belongs
 

@@ -61,7 +61,8 @@ namespace cpplot {
                     EdgeColor("b"),
                     LineStyle("-"),
                     LineWidth(0.5),
-                    NContour(10)
+                    NContour(10),
+                    type(_2D)
                 {}
 
             void clear(); ///< Clear all data

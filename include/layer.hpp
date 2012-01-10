@@ -58,8 +58,8 @@ namespace cpplot {
              */
             layer_t_t(const figure_t fig, const std::string name, const bool viz)
                 :   visible(viz),
-                    figure(fig),
-                    layername(name)
+                    layername(name),
+                    figure(fig)
                 {}
 
             void draw(); ///< Draw the layer to the figure
@@ -71,8 +71,8 @@ namespace cpplot {
             void toggle_visibility(); ///< Toggle the visibility of the layer
             void set_visibility(bool v); ///< Set the visibility of the layer
             bool is_visible() { return visible; } ///< Check if the layer is visible
-            const bool mouse(const int button, const int state, const int x, const int y); ///< Callback when a mouse button is clicked.
-            const bool motion(const int x, const int y); ///< Callback when mouse is moved with button down
+            bool mouse(const int button, const int state, const int x, const int y); ///< Callback when a mouse button is clicked.
+            bool motion(const int x, const int y); ///< Callback when mouse is moved with button down
             //~ const bool passivemotion(const int x, const int y);
 
             // interface ///
@@ -140,7 +140,7 @@ namespace cpplot {
             surface_t surface(const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(Z, C); } ///< See surface.hpp
             surface_t surface(const dvec& x, const dvec& y, const dmat& Z) { return gca()->add<Surface>()->surface(x,y,Z); } ///< See surface.hpp
             surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const dmat& C) { return gca()->add<Surface>()->surface(x,y,Z,C); } ///< See surface.hpp
-            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(x,y,Z); } ///< See surface.hpp
+            surface_t surface(const dvec& x, const dvec& y, const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(x,y,Z,C); } ///< See surface.hpp
             surface_t surface(const dmat& X, const dmat& Y, const dmat& Z) { return gca()->add<Surface>()->surface(X,Y,Z); } ///< See surface.hpp
             surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const dmat& C) { return gca()->add<Surface>()->surface(X,Y,Z,C); } ///< See surface.hpp
             surface_t surface(const dmat& X, const dmat& Y, const dmat& Z, const tcmat& C) { return gca()->add<Surface>()->surface(X,Y,Z,C); } ///< See surface.hpp

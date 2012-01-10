@@ -51,10 +51,10 @@ namespace cpplot {
             Patch(const axes_t a)
                 :   drawing_t_t(a),
                     type(_2D),
-                    LineStyle("-"),
-                    LineWidth(1),
                     EdgeColor("k"),
-                    FaceColor("r")
+                    FaceColor("r"),
+                    LineStyle("-"),
+                    LineWidth(1)
                 {}
 
             void clear(); ///< Clear all data
