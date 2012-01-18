@@ -77,10 +77,10 @@ namespace cpplot {
              * Create a new layer in the figure
              */
             layer_t layer(const std::string name = "default", const bool viz = true);
-            void draw(); ///< Draw the layers
-            void draw_layer_list(); ///< Draw the layer list
             layer_t gcl() { return cl ? cl : layer(); } ///< Get the current layer, or create a new one if needed
             figure_t clear() { cl.reset(); layers.clear(); return shared_from_this(); } ///< Clear the figure
+            void draw(); ///< Draw the layers
+            void draw_layer_list(); ///< Draw the layer list
 
             // GLUT Callback Functions ///
             void reshape(const int w, const int h); ///< Callback on window resize
@@ -92,6 +92,7 @@ namespace cpplot {
             figure_t gcf() { return shared_from_this(); } ///< Get pointer to self
             // interface ///
             axes_t gca() { return gcl()->gca(); } ///< Get the currently active axes object (created if nescessary)
+            axes_t subplot(const int m, const int n, const int p) { return gcl()->subplot(m,n,p); }
 
             template<typename T>
             void set(const std::string v) { gca()->gco<T>()->set(v); } ///< Set property
