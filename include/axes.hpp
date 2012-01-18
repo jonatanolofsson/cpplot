@@ -77,7 +77,7 @@ namespace cpplot {
 
             double xmin,xmax,ymin,ymax,zmin,zmax; ///< Contains the limits of the data contained in the child drawings
 
-            void reset(); ///< Reset the axes object to its default values
+            void reset_limits(); ///< Reset the axes limits for recalculation
             void config(); ///< Configure the axes object to fit the data
             axes_t set(const std::string p, const std::string v); ///< Set property
 
