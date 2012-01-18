@@ -28,6 +28,7 @@ Version:0.3.13
 ****************************************************************************/
 
 #include "cpplot_common.hpp"
+#include <limits>
 
 namespace cpplot {
     axes_t_t::axes_t_t(layer_t l)
@@ -38,9 +39,9 @@ namespace cpplot {
             phi(cta0),
             Mouse(false),
             mouse_callback(NULL),
-            xmin(1e99),    xmax(-1e99),
-            ymin(1e99),    ymax(-1e99),
-            zmin(1e99),    zmax(-1e99),
+            xmin(std::numeric_limits<double>::max()),    xmax(std::numeric_limits<double>::min()),
+            ymin(std::numeric_limits<double>::max()),    ymax(std::numeric_limits<double>::min()),
+            zmin(std::numeric_limits<double>::max()),    zmax(std::numeric_limits<double>::min()),
             type(_2D),
             Box(true),
             GridLineStyle(":"),
@@ -50,6 +51,7 @@ namespace cpplot {
             XGrid(false),
             YGrid(false),
             ZGrid(false),
+            selected(false),
             XAxisLocation("bottom"),
             YAxisLocation("left"),
             XLimMode(automatic),
@@ -60,7 +62,6 @@ namespace cpplot {
             ZScale(math::linear_scale),
             TickLabel(true)
     {
-        selected = false;
         position[0] = 0.13;
         position[1] = 0.11;
         position[2] = 0.775;
@@ -89,12 +90,13 @@ namespace cpplot {
     int axes_t_t::window_h() { return layer->figure->window_h; }
     int axes_t_t::window_w() { return layer->figure->window_w; }
 
-    void axes_t_t::reset() {
-        xmin = 1e99; xmax = -1e99;
-        ymin = 1e99; ymax = -1e99;
-        zmin = 1e99; zmax = -1e99;
+    void axes_t_t::reset_limits() {
+        xmin = std::numeric_limits<double>::max(); xmax = std::numeric_limits<double>::min();
+        ymin = std::numeric_limits<double>::max(); ymax = std::numeric_limits<double>::min();
+        zmin = std::numeric_limits<double>::max(); zmax = std::numeric_limits<double>::min();
     }
     void axes_t_t::config() {
+        reset_limits();
         for(drawings_t::iterator d = children.begin(); d != children.end(); ++d) {
             (*d)->config();
         }

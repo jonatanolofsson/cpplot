@@ -30,11 +30,14 @@ Version:0.3.13
 
 #include "cpplot_common.hpp"
 #include "color.hpp"
+#include <limits>
 
 namespace cpplot {
     Line::Line(const axes_t a)
         :   drawing_t_t(a),
             Errorbar(false),
+            max_capacity(std::numeric_limits<int>::max()),
+            stop_at_max_(false),
             XData(), YData(), ZData(),
             YPData(), YMData(),
             Color("b"),
@@ -43,7 +46,8 @@ namespace cpplot {
             Marker("none"),
             MarkerSize(6),
             MarkerEdgeColor("k"),
-            MarkerFaceColor("w")
+            MarkerFaceColor("w"),
+            visible(true)
         {}
     figure_t Line::gcf() { return ca->gcl()->gcf(); }
     void Line::clear() {
@@ -335,16 +339,34 @@ namespace cpplot {
         ca->zmax = std::max(mm.second,ca->zmax);
     }
 
+    line_t Line::set_capacity(unsigned int a) {
+        if(a < max_capacity) {
+            if(XData.size() > a) XData.erase(XData.begin(), XData.end() - a);
+            if(YData.size() > a) YData.erase(YData.begin(), YData.end() - a);
+            if(ZData.size() > a) ZData.erase(ZData.begin(), ZData.end() - a);
+        }
+        max_capacity = a;
+        return shared_from_this();
+    }
+
+    line_t Line::stop_at_max(bool s) {
+        stop_at_max_ = s;
+        return shared_from_this();
+    }
+
 
     /// vertex
     void  Line::vertex(const double x, const double y) {
+        if(XData.size() == max_capacity && stop_at_max_) return;
         boost::mutex::scoped_lock l(data_mutex);
         if(ca->xmin > x) { ca->xmin = x; }
         if(ca->xmax < x) { ca->xmax = x; }
         if(ca->ymin > y) { ca->ymin = y; }
         if(ca->ymax < y) { ca->ymax = y; }
         XData.push_back(x);
+        if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
         YData.push_back(y);
+        if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
     }
 
     line_t Line::line(const dvec& x, const dvec& y) {
@@ -405,15 +427,20 @@ namespace cpplot {
     }
     /// errorbar
     void Line::vertex(const double x, const double y, const double ep, const double em) {//for errorbar
+        if(XData.size() == max_capacity && stop_at_max_) return;
         boost::mutex::scoped_lock l(data_mutex);
         if(ca->xmin>x) { ca->xmin=x; }
         if(ca->xmax < x) { ca->xmax = x; }
         if(ca->ymin > y+ep) { ca->ymin = y+ep; }
         if(ca->ymax < y-em) { ca->ymax = y-em; }
         XData.push_back(x);
+        if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
         YData.push_back(y);
+        if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
         YPData.push_back(ep);
+        if(YPData.size() > max_capacity) YPData.erase(XData.begin(), YPData.end()-max_capacity);
         YMData.push_back(em);
+        if(YMData.size() > max_capacity) YMData.erase(YMData.begin(), YMData.end()-max_capacity);
     }
     line_t Line::errorbar(const dvec& x, const dvec& y,dvec e) {
         for(unsigned int i = 0; i < x.size(); ++i) { vertex(x[i],y[i],e[i],e[i]); }
@@ -427,6 +454,7 @@ namespace cpplot {
     }
     /// 3D line
     void Line::vertex(const double x, const double y, const double z) {
+        if(XData.size() == max_capacity && stop_at_max_) return;
         boost::mutex::scoped_lock l(data_mutex);
         if(ca->xmin > x) { ca->xmin = x; }
         if(ca->xmax < x) { ca->xmax = x; }
@@ -435,8 +463,11 @@ namespace cpplot {
         if(ca->zmin > z) { ca->zmin = z; }
         if(ca->zmax < z) { ca->zmax = z; }
         XData.push_back(x);
+        if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
         YData.push_back(y);
+        if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
         ZData.push_back(z);
+        if(ZData.size() > max_capacity) ZData.erase(ZData.begin(), ZData.end()-max_capacity);
     }
 
     line_t Line::set(const float v) {

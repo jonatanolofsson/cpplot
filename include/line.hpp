@@ -51,6 +51,8 @@ namespace cpplot {
             void color(const float r, const float g, const float b); ///< Set line color
 
             // Matlab oriented variables //
+            unsigned int max_capacity;
+            bool stop_at_max_;
             dvec XData,YData,ZData; ///< Data containers
             dvec YPData,YMData; ///< Error data containers (+- error)
 
@@ -71,6 +73,9 @@ namespace cpplot {
 
             void draw(); ///< Draw the line on the line's axes. Used internally only.
             void config(); ///< Configure the axes to which the line belongs. Used internally only
+
+            line_t set_capacity(unsigned int);
+            line_t stop_at_max(bool = true);
 
             // vertex
             void  vertex(const double x, const double y); ///< Add a line segment to the line
