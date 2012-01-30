@@ -608,7 +608,7 @@ namespace cpplot {
     }
 
     /// axis
-    void axes_t_t::axis(const double xMin, const double xMax, const double yMin, const double yMax) {
+    axes_t axes_t_t::axis(const double xMin, const double xMax, const double yMin, const double yMax) {
         if(xMin != xMax) {
             XLim[0]  = xMin;
             XLim[1]  = xMax;
@@ -620,9 +620,10 @@ namespace cpplot {
             YLimMode = manual;
         }
         type = axes_t_t::_2D;
+        return shared_from_this();
     }
 
-    void axes_t_t::axis(const double xMin, const double xMax, const double yMin, const double yMax, const double zMin, const double zMax) {
+    axes_t axes_t_t::axis(const double xMin, const double xMax, const double yMin, const double yMax, const double zMin, const double zMax) {
         if(xMin != xMax) {
             XLim[0]  = xMin;
             XLim[1]  = xMax;
@@ -639,17 +640,18 @@ namespace cpplot {
             ZLimMode = manual;
         }
         type = axes_t_t::_3D;
+        return shared_from_this();
     }
 
-    void axes_t_t::axis(const bool s)                 { Box = s; }
-    void axes_t_t::axis(const std::string s)          { axis(s == "on"); }
-    void axes_t_t::grid(bool s)                       { XGrid = YGrid = ZGrid = s; }
-    void axes_t_t::grid(const std::string s)          { grid(s == "on"); }
-    void axes_t_t::ticklabel(const bool s)            { TickLabel = s; }
-    void axes_t_t::title(const std::string s)         { Title = s; }
-    void axes_t_t::xlabel(const std::string s)        { XLabel = s; }
-    void axes_t_t::ylabel(const std::string s)        { YLabel = s; }
-    void axes_t_t::mouse_capture(const bool y)        { Mouse = y; }
+    axes_t axes_t_t::axis(const bool s)                 { Box = s; return shared_from_this(); }
+    axes_t axes_t_t::axis(const std::string s)          { axis(s == "on"); return shared_from_this(); }
+    axes_t axes_t_t::grid(bool s)                       { XGrid = YGrid = ZGrid = s; return shared_from_this(); }
+    axes_t axes_t_t::grid(const std::string s)          { grid(s == "on"); return shared_from_this(); }
+    axes_t axes_t_t::ticklabel(const bool s)            { TickLabel = s; return shared_from_this(); }
+    axes_t axes_t_t::title(const std::string s)         { Title = s; return shared_from_this(); }
+    axes_t axes_t_t::xlabel(const std::string s)        { XLabel = s; return shared_from_this(); }
+    axes_t axes_t_t::ylabel(const std::string s)        { YLabel = s; return shared_from_this(); }
+    axes_t axes_t_t::mouse_capture(const bool y)        { Mouse = y; return shared_from_this(); }
 
     /// ptext
     void axes_t_t::ptext(float x, float y, const std::string s) {

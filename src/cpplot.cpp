@@ -22,10 +22,13 @@ namespace cpplot {
     typedef std::map<std::string, figure_t> figuremap;
     figuremap named_figures;
     boost::mutex figures_mutex;
+    boost::mutex named_figures_mutex;
 
     figure_t figure(const std::string name) {
+        boost::mutex::scoped_lock l(named_figures_mutex);
         figure_t f = named_figures[name];
         if(f == NULL) {
+            std::cout << "New figure: " << name << std::endl;
             named_figures[name] = f = figure();
             f->set_window_name(name);
         }

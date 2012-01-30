@@ -140,20 +140,20 @@ namespace cpplot {
             /**
              * Set the axis limits (2D)
              */
-            void axis(const double xMin, const double xMax, const double yMin, const double yMax);
+            axes_t axis(const double xMin, const double xMax, const double yMin, const double yMax);
             /**
              * Set the axis limits (3D)
              */
-            void axis(const double xMin, const double xMax, const double yMin, const double yMax, const double zMin, const double zMax);
-            void axis(const std::string s); ///< Set the visibility of the axis "on" or "off"
-            void axis(const bool s = true); ///< Set the visibility of the axis
-            void grid(const std::string s); ///< Set the visibility of the grid "on" or "off"
-            void grid(bool s = true); ///< Set the visibility of the grid
-            void ticklabel(const bool s = true); ///< Set the visibility of the ticklabels
-            void title(const std::string s); ///< Set the title of the axes
-            void xlabel(const std::string s); ///< Set the label for the x-axis
-            void ylabel(const std::string s); ///< Set the label for the y-axis
-            void mouse_capture(const bool y = true); ///< Capture mouse events
+            axes_t axis(const double xMin, const double xMax, const double yMin, const double yMax, const double zMin, const double zMax);
+            axes_t axis(const std::string s); ///< Set the visibility of the axis "on" or "off"
+            axes_t axis(const bool s = true); ///< Set the visibility of the axis
+            axes_t grid(const std::string s); ///< Set the visibility of the grid "on" or "off"
+            axes_t grid(bool s = true); ///< Set the visibility of the grid
+            axes_t ticklabel(const bool s = true); ///< Set the visibility of the ticklabels
+            axes_t title(const std::string s); ///< Set the title of the axes
+            axes_t xlabel(const std::string s); ///< Set the label for the x-axis
+            axes_t ylabel(const std::string s); ///< Set the label for the y-axis
+            axes_t mouse_capture(const bool y = true); ///< Capture mouse events
 
             /**
              * Add a new child drawing to the axes. The added type must
