@@ -32,14 +32,16 @@ Version:0.3.13
 namespace cpplot {
     /// subplot
     axes_t layer_t_t::subplot(const int m, const int n, const int p) {
-        ca = axes[p];
+        int pp = p-1;
+        ca = axes[pp];
         if(ca == NULL) {
             axes_t a(new axes_t_t(shared_from_this()));
-            axes[p] = ca = a;
-            int ix,iy;
+            axes[pp] = ca = a;
+            int ix = pp/m;
+            int iy = (m-1) - pp%m;
 
-            ix = (p-1)%n;
-            iy = (m-1)-(p-1)/n;
+            //~ ix = (p-1)%n;
+            //~ iy = (m-1)-(p-1)/n;
             ca->position[0] = (ix + 0.13)/n;
             ca->position[1] = (iy + 0.11)/m;
             ca->position[2] = 0.775/n;
