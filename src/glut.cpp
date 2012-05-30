@@ -114,9 +114,10 @@ namespace cpplot {
             int window = glutGetWindow();
             if(window == 0) return;
 
-            glutmap::iterator w = windows.find(window);
-            if(w == windows.end()) return;
-            w->second->draw();
+            //~ glutmap::iterator w = windows.find(window);
+            //~ if(w == windows.end()) return;
+            for(glutmap::iterator w = windows.begin(); w != windows.end(); ++w)
+                w->second->draw();
         }
         void reshape(int w, int h) {
             //~ std::cout << "reshape" << std::endl;

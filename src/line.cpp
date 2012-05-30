@@ -303,7 +303,7 @@ namespace cpplot {
 
     std::pair<double, double> Line::min_max(const dvec& data, math::scale scale_ = math::linear_scale) {
         boost::mutex::scoped_lock l(data_mutex);
-        std::pair<double, double> mm(std::numeric_limits<double>::max(), std::numeric_limits<double>::min());
+        std::pair<double, double> mm(std::numeric_limits<double>::max(), -std::numeric_limits<double>::max());
         if(scale_ == math::linear_scale) {//linear_scale
             for(dvec::const_iterator i = data.begin(); i != data.end(); ++i) {
                 if(mm.first > *i) {

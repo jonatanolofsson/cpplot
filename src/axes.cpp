@@ -39,9 +39,9 @@ namespace cpplot {
             phi(cta0),
             Mouse(false),
             mouse_callback(NULL),
-            xmin(std::numeric_limits<double>::max()),    xmax(std::numeric_limits<double>::min()),
-            ymin(std::numeric_limits<double>::max()),    ymax(std::numeric_limits<double>::min()),
-            zmin(std::numeric_limits<double>::max()),    zmax(std::numeric_limits<double>::min()),
+            xmin(std::numeric_limits<double>::max()),    xmax(-std::numeric_limits<double>::max()),
+            ymin(std::numeric_limits<double>::max()),    ymax(-std::numeric_limits<double>::max()),
+            zmin(std::numeric_limits<double>::max()),    zmax(-std::numeric_limits<double>::max()),
             type(_2D),
             Box(true),
             GridLineStyle(":"),
@@ -91,9 +91,9 @@ namespace cpplot {
     int axes_t_t::window_w() { return layer->figure->window_w; }
 
     void axes_t_t::reset_limits() {
-        xmin = std::numeric_limits<double>::max(); xmax = std::numeric_limits<double>::min();
-        ymin = std::numeric_limits<double>::max(); ymax = std::numeric_limits<double>::min();
-        zmin = std::numeric_limits<double>::max(); zmax = std::numeric_limits<double>::min();
+        xmin = std::numeric_limits<double>::max(); xmax = -std::numeric_limits<double>::max();
+        ymin = std::numeric_limits<double>::max(); ymax = -std::numeric_limits<double>::max();
+        zmin = std::numeric_limits<double>::max(); zmax = -std::numeric_limits<double>::max();
     }
     void axes_t_t::config() {
         reset_limits();
