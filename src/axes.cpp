@@ -791,13 +791,27 @@ namespace cpplot {
 
     std::vector<float> axes_t_t::map2color(const double x) {
         xmin = CLim[0]; xmax = CLim[1];
-        int n = cmap.size();
+        const unsigned int n = cmap.size();
+        if (n < 1)
+        {
+            return std::vector<float>(3, 0.f);
+        }
         float normx;
-        std::vector<float> rgb(3);
 
-        normx = (x - xmin)/(xmax - xmin);
-        if(x > xmax) { normx = 1; }
-        if(x < xmin) { normx = 0; }
+        if(x >= xmax)
+        {
+            normx = 1.f;
+        }
+        else if(x <= xmin)
+        {
+            normx = 0.f;
+        }
+        else
+        {
+            normx = (x - xmin)/(xmax - xmin);
+        }
+
+        std::vector<float> rgb;
         rgb = cmap[(int)(normx*(n-1))];
         //cout << "c: "<<(int)(normx*n) <<endl;
         //cout << "rgb: "<<rgb[0]<<" "<<endl;
