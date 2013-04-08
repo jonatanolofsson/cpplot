@@ -356,17 +356,19 @@ namespace cpplot {
 
 
     /// vertex
-    void  Line::vertex(const double x, const double y) {
-        if(XData.size() == max_capacity && stop_at_max_) return;
-        boost::mutex::scoped_lock l(data_mutex);
-        if(ca->xmin > x) { ca->xmin = x; }
-        if(ca->xmax < x) { ca->xmax = x; }
-        if(ca->ymin > y) { ca->ymin = y; }
-        if(ca->ymax < y) { ca->ymax = y; }
-        XData.push_back(x);
-        if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
-        YData.push_back(y);
-        if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
+    line_t  Line::vertex(const double x, const double y) {
+        if(!(XData.size() == max_capacity && stop_at_max_)) {
+            boost::mutex::scoped_lock l(data_mutex);
+            if(ca->xmin > x) { ca->xmin = x; }
+            if(ca->xmax < x) { ca->xmax = x; }
+            if(ca->ymin > y) { ca->ymin = y; }
+            if(ca->ymax < y) { ca->ymax = y; }
+            XData.push_back(x);
+            if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
+            YData.push_back(y);
+            if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
+        }
+        return shared_from_this();
     }
 
     line_t Line::line(const dvec& x, const dvec& y) {
@@ -426,21 +428,23 @@ namespace cpplot {
         return shared_from_this();
     }
     /// errorbar
-    void Line::vertex(const double x, const double y, const double ep, const double em) {//for errorbar
-        if(XData.size() == max_capacity && stop_at_max_) return;
-        boost::mutex::scoped_lock l(data_mutex);
-        if(ca->xmin>x) { ca->xmin=x; }
-        if(ca->xmax < x) { ca->xmax = x; }
-        if(ca->ymin > y+ep) { ca->ymin = y+ep; }
-        if(ca->ymax < y-em) { ca->ymax = y-em; }
-        XData.push_back(x);
-        if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
-        YData.push_back(y);
-        if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
-        YPData.push_back(ep);
-        if(YPData.size() > max_capacity) YPData.erase(XData.begin(), YPData.end()-max_capacity);
-        YMData.push_back(em);
-        if(YMData.size() > max_capacity) YMData.erase(YMData.begin(), YMData.end()-max_capacity);
+    line_t Line::vertex(const double x, const double y, const double ep, const double em) {//for errorbar
+        if(!(XData.size() == max_capacity && stop_at_max_)) {
+            boost::mutex::scoped_lock l(data_mutex);
+            if(ca->xmin>x) { ca->xmin=x; }
+            if(ca->xmax < x) { ca->xmax = x; }
+            if(ca->ymin > y+ep) { ca->ymin = y+ep; }
+            if(ca->ymax < y-em) { ca->ymax = y-em; }
+            XData.push_back(x);
+            if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
+            YData.push_back(y);
+            if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
+            YPData.push_back(ep);
+            if(YPData.size() > max_capacity) YPData.erase(XData.begin(), YPData.end()-max_capacity);
+            YMData.push_back(em);
+            if(YMData.size() > max_capacity) YMData.erase(YMData.begin(), YMData.end()-max_capacity);
+        }
+        return shared_from_this();
     }
     line_t Line::errorbar(const dvec& x, const dvec& y,dvec e) {
         for(unsigned int i = 0; i < x.size(); ++i) { vertex(x[i],y[i],e[i],e[i]); }
@@ -453,21 +457,23 @@ namespace cpplot {
         return shared_from_this();
     }
     /// 3D line
-    void Line::vertex(const double x, const double y, const double z) {
-        if(XData.size() == max_capacity && stop_at_max_) return;
-        boost::mutex::scoped_lock l(data_mutex);
-        if(ca->xmin > x) { ca->xmin = x; }
-        if(ca->xmax < x) { ca->xmax = x; }
-        if(ca->ymin > y) { ca->ymin = y; }
-        if(ca->ymax < y) { ca->ymax = y; }
-        if(ca->zmin > z) { ca->zmin = z; }
-        if(ca->zmax < z) { ca->zmax = z; }
-        XData.push_back(x);
-        if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
-        YData.push_back(y);
-        if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
-        ZData.push_back(z);
-        if(ZData.size() > max_capacity) ZData.erase(ZData.begin(), ZData.end()-max_capacity);
+    line_t Line::vertex(const double x, const double y, const double z) {
+        if(!(XData.size() == max_capacity && stop_at_max_)) {
+            boost::mutex::scoped_lock l(data_mutex);
+            if(ca->xmin > x) { ca->xmin = x; }
+            if(ca->xmax < x) { ca->xmax = x; }
+            if(ca->ymin > y) { ca->ymin = y; }
+            if(ca->ymax < y) { ca->ymax = y; }
+            if(ca->zmin > z) { ca->zmin = z; }
+            if(ca->zmax < z) { ca->zmax = z; }
+            XData.push_back(x);
+            if(XData.size() > max_capacity) XData.erase(XData.begin(), XData.end()-max_capacity);
+            YData.push_back(y);
+            if(YData.size() > max_capacity) YData.erase(YData.begin(), YData.end()-max_capacity);
+            ZData.push_back(z);
+            if(ZData.size() > max_capacity) ZData.erase(ZData.begin(), ZData.end()-max_capacity);
+        }
+        return shared_from_this();
     }
 
     line_t Line::set(const float v) {

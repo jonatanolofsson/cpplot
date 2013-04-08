@@ -78,7 +78,7 @@ namespace cpplot {
             line_t stop_at_max(bool = true);
 
             // vertex
-            void  vertex(const double x, const double y); ///< Add a line segment to the line
+            line_t  vertex(const double x, const double y); ///< Add a line segment to the line
             line_t line(const dvec& x, const dvec& y); ///< Draw a 2D-line with the supplied data (clearing any previous data in the line)
             line_t line(const dvec& x, const dvec& y, const dvec& z); ///< Draw a 3D-line with the supplied data (clearing any previous data in the line)
             // plot, semilogx, semilogy, loglog
@@ -90,11 +90,11 @@ namespace cpplot {
             line_t semilogy(const dvec& x, const dvec& y); ///< Draw a 2D-line with the supplied data (clearing any previous data in the line) where the y-axis is drawn logarithmically
             line_t loglog(const dvec& x, const dvec& y); ///< Draw a 2D-line with the supplied data (clearing any previous data in the line) where both the axes are drawn logarithmically
             // errorbar
-            void vertex(const double x, const double y, const double ep, const double em); ///< Add line segment with error to the plot
+            line_t vertex(const double x, const double y, const double ep, const double em); ///< Add line segment with error to the plot
             line_t errorbar(const dvec& x, const dvec& y,dvec e); ///< Draw a 2D-line with the supplied data (clearing any previous data in the line) with error indicated in the plot
             line_t errorbar(const dvec& x, const dvec& y,dvec ep, const dvec& em); ///< ///< Draw a 2D-line with the supplied data (clearing any previous data in the line) with error indicated in the plot
             // 3D line
-            void vertex(const double x, const double y, const double z); ///< Add a line segment to the line
+            line_t vertex(const double x, const double y, const double z); ///< Add a line segment to the line
             line_t set(const float v); ///< Set linewidth
             line_t set(const std::string v); ///< Set property
             line_t set(const std::string p, const std::string v); ///< Set property
