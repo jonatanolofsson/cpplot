@@ -1,4 +1,5 @@
 #include "cpplot.hpp"
+#include <chrono>
 
 bool is_run = true;
 
@@ -40,7 +41,7 @@ int main(int argc, char* argv[]){
         //mesh
         p2->mesh(x,y,Z);
 
-        boost::this_thread::sleep(boost::posix_time::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         if(is_run) t+= 0.1;
     }
     return 0;

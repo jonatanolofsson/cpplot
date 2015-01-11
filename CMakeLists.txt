@@ -4,10 +4,6 @@ project(CPPLOT)
 find_package(GLUT)
 find_package(OpenGL)
 
-find_package( Boost COMPONENTS thread )
-link_directories ( ${Boost_LIBRARY_DIRS} )
-include_directories ( ${Boost_INCLUDE_DIRS} )
-
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 option(CPPLOT_BUILD_EXAMPLES "Build examples" OFF)
@@ -15,16 +11,27 @@ option(CPPLOT_BUILD_EXAMPLES "Build examples" OFF)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_CXX_FLAGS "-ggdb -Wall -Wextra -fPIC")
+set(CMAKE_CXX_FLAGS "-ggdb -Wall -Wextra -fPIC -std=c++11 -Wfatal-errors -Werror")
 
 ## Build the library
 include_directories(${PROJECT_SOURCE_DIR}/src)
 set(SRC_DIR "src")
-add_library(cpplot SHARED ${SRC_DIR}/cpplot.cpp ${SRC_DIR}/math.cpp ${SRC_DIR}/glut.cpp ${SRC_DIR}/figure.cpp ${SRC_DIR}/layer.cpp ${SRC_DIR}/axes.cpp ${SRC_DIR}/color.cpp ${SRC_DIR}/drawing.cpp ${SRC_DIR}/line.cpp ${SRC_DIR}/patch.cpp ${SRC_DIR}/surface.cpp ${SRC_DIR}/text.cpp)
+add_library(cpplot SHARED
+    ${SRC_DIR}/cpplot.cpp
+    ${SRC_DIR}/math.cpp
+    ${SRC_DIR}/glut.cpp
+    ${SRC_DIR}/figure.cpp
+    ${SRC_DIR}/layer.cpp
+    ${SRC_DIR}/axes.cpp
+    ${SRC_DIR}/color.cpp
+    ${SRC_DIR}/drawing.cpp
+    ${SRC_DIR}/line.cpp
+    ${SRC_DIR}/patch.cpp
+    ${SRC_DIR}/surface.cpp
+    ${SRC_DIR}/text.cpp)
 target_link_libraries(cpplot
     ${GLUT_LIBRARY}
     ${OPENGL_LIBRARY}
-    ${Boost_LIBRARIES}
     gl2ps)
 
 

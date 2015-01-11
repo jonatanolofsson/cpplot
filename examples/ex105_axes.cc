@@ -1,5 +1,5 @@
 #include "cpplot.hpp"
-#include <boost/thread.hpp>
+#include <thread>
 #include <iostream>
 
 int main(int argc, char* argv[]) {
@@ -50,5 +50,5 @@ int main(int argc, char* argv[]) {
     subplot(2,3,6);set("TickDir","out");
     plot(x,y1);
 
-    while(true) boost::this_thread::yield();
+    while(true) std::this_thread::yield();
 }

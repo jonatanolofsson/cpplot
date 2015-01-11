@@ -44,6 +44,6 @@ int main(int argc, char* argv[]){
 
     subplot(2,2,4);
     plot(x,y4);
-    while(true) boost::this_thread::yield();
+    while(true) std::this_thread::yield();
     return 0;
 }

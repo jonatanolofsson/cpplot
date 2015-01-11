@@ -12,8 +12,8 @@ Version:0.3.13
 #include "cpplot.hpp"
 #include <algorithm>
 #include <cstdio>
-#include <boost/thread.hpp>
-#include <boost/thread/mutex.hpp>
+#include <thread>
+#include <mutex>
 #include <iostream>
 
 namespace cpplot {
@@ -21,11 +21,11 @@ namespace cpplot {
     figure_t cf;
     typedef std::map<std::string, figure_t> figuremap;
     figuremap named_figures;
-    boost::mutex figures_mutex;
-    boost::mutex named_figures_mutex;
+    std::mutex figures_mutex;
+    std::mutex named_figures_mutex;
 
     figure_t figure(const std::string name) {
-        boost::mutex::scoped_lock l(named_figures_mutex);
+        std::unique_lock<std::mutex> l(named_figures_mutex);
         figure_t f = named_figures[name];
         if(f == NULL) {
             std::cout << "New figure: " << name << std::endl;
@@ -42,7 +42,7 @@ namespace cpplot {
 
     figure_t figure(const int i) {
         if(i > max_figure_number) max_figure_number = i;
-        boost::mutex::scoped_lock l(figures_mutex);
+        std::unique_lock<std::mutex> l(figures_mutex);
         cf = figures[i];
         if(cf == NULL) {
             figure_t p(new figure_t_t());

@@ -49,6 +49,6 @@ int main(int argc, char* argv[]){
     y=Y[6];plot(x,y);set("o");
     y=Y[7];plot(x,y);set("*");
     y=Y[8];plot(x,y);set("s");
-    while(true) boost::this_thread::yield();
+    while(true) std::this_thread::yield();
     return 0;
 }

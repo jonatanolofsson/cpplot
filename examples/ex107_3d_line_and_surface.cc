@@ -43,6 +43,6 @@ int main(int argc, char* argv[]){
 
     // To add colorbar
     colorbar();
-    while(true) boost::this_thread::yield();
+    while(true) std::this_thread::yield();
     return 0;
 }
