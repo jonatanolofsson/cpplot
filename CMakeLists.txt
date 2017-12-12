@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 project(CPPLOT)
 
-find_package(GLUT)
-find_package(OpenGL)
+find_package(GLUT REQUIRED)
+find_package(OpenGL REQUIRED)
+find_library(gl2ps_LIBRARY gl2ps)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
@@ -32,9 +33,7 @@ add_library(cpplot SHARED
 target_link_libraries(cpplot
     ${GLUT_LIBRARY}
     ${OPENGL_LIBRARY}
-    gl2ps)
-
-
+    ${gl2ps_LIBRARY})
 
 ## Installation
 
