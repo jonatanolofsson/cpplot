@@ -58,7 +58,7 @@ namespace cpplot {
 
     void Surface::draw2d() {
         std::unique_lock<std::mutex> l(data_mutex);
-        unsigned int nxi,nxj,nyi,nyj,nzi,nzj;
+        unsigned int nxi=0,nxj=0,nyi=0,nyj=0,nzi=0,nzj=0;
         std::vector<float> rgb;
         nxi = XData.size(); if(nxi) { nxj = XData[0].size(); }
         nyi = YData.size(); if(nyi) { nyj = YData[0].size(); }

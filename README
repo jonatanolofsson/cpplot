@@ -16,7 +16,7 @@ Getting Started
 
 To install a required library on ubuntu
 
-$ sudo apt-get install freeglut3-dev
+$ sudo apt-get install freeglut3-dev libgl2ps-dev
 
 To compile cpplot,
 
