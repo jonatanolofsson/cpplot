@@ -70,7 +70,7 @@ namespace cpplot {
         if(XData.size() == 0) return;
 
         float xx,yy;// transformed coordinates
-        float rx,ry;
+        float rx=0,ry=0;
         std::vector<float> rgb = ColorSpec2RGB(Color);
         glColor3f(rgb[0],rgb[1],rgb[2]);
 
