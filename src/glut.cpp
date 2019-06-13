@@ -40,6 +40,7 @@ namespace cpplot {
 
         void idle();
         void display();
+        void no_display();
         void reshape(int w, int h);
         void mouse(int button, int state, int x, int y);
         void motion(int x, int y);
@@ -100,6 +101,7 @@ namespace cpplot {
             glutInitWindowSize( 0, 0  );
             tool_window_number = glutCreateWindow("");
             glutIdleFunc(tool);
+            glutDisplayFunc(glut::no_display);
             glutHideWindow();
             glutMainLoop();
         }
@@ -114,6 +116,8 @@ namespace cpplot {
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
 
+        void no_display() { }
+
         void display() {
             //~ std::cout << "Display..."<< std::endl;
             int window = glutGetWindow();
@@ -124,6 +128,7 @@ namespace cpplot {
             for(glutmap::iterator w = windows.begin(); w != windows.end(); ++w)
                 w->second->draw();
         }
+
         void reshape(int w, int h) {
             //~ std::cout << "reshape" << std::endl;
             int window = glutGetWindow();
@@ -133,6 +138,7 @@ namespace cpplot {
             if(win == windows.end()) return;
             win->second->reshape(w,h);
         }
+
         void mouse(int button, int state, int x, int y) {
             int window = glutGetWindow();
             if(window == 0) return;
@@ -141,6 +147,7 @@ namespace cpplot {
             if(w == windows.end()) return;
             w->second->mouse(button,state,x,y);
         }
+
         void motion(int x, int y) {
             int window = glutGetWindow();
             if(window == 0) return;
@@ -149,6 +156,7 @@ namespace cpplot {
             if(w == windows.end()) return;
             w->second->motion(x,y);
         }
+
         void passivemotion(int x,int y) {
             int window = glutGetWindow();
             if(window == 0) return;
@@ -157,6 +165,7 @@ namespace cpplot {
             if(w == windows.end()) return;
             w->second->passivemotion(x,y);
         }
+
         void keyboard(unsigned char key, int x, int y) {
             int window = glutGetWindow();
             if(window == 0) return;
